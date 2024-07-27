@@ -1,0 +1,36 @@
+.max-content {
+    max-width: -webkit-max-content !important;
+    max-width: -moz-max-content !important;
+    max-width: max-content !important;
+    min-width: -webkit-max-content !important;
+    min-width: -moz-max-content !important;
+    min-width: max-content !important;
+    width: -webkit-max-content !important;
+    width: -moz-max-content !important;
+    width: max-content !important;
+  }
+  
+  .d-contents {
+    display: contents !important;
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  .pointer-events-none {
+    pointer-events: none;
+  }
+  
+  // padding and margins
+  .m-r-0 {
+    margin-right: 0 !important;
+  }
+  
+  .m-l-0 {
+    margin-left: 0 !important;
+  }
+  
+  .p-input-icon-left > i, .p-input-icon-left > .p-icon-wrapper, .p-input-icon-right > i, .p-input-icon-right > .p-icon-wrapper {
+    
+  }

@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./../public/assets/font/index.scss";
+$gutter: 1rem; //for primeflex grid system
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Demos */
+@import "./../public/assets/scss/flags/flags.css";
+@import "./../public/assets/scss/badges/badges.scss";
+@import "./../public/assets/scss/code/code.scss";
+@import "./../public/assets/scss/layout/layout.scss";
+@import "./../public/assets/scss/style.scss";
+
+body{
+    direction: rtl;
+    font-family: var(--bakh-fa-regular);
+    * {
+        font-family: var(--bakh-fa-regular);
+        direction: rtl;
+    }
+}
