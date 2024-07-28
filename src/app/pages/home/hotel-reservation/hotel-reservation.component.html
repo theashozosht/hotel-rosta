@@ -1,1 +1,95 @@
-<p>hotel-reservation works!</p>
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <div class="flex">
+        <span class="text-600 font-medium text-xl">نام ماه : </span>
+        <h5 class="text-900 font-bold m-0 mr-2 text-2xl">{{ monthName }}</h5>
+      </div>
+      <p-table
+        [value]="tableData"
+        scrollDirection="both"
+        [scrollable]="true"
+        styleClass="mt-3"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr class="border">
+            @for(item of tableHeaders; track $index){
+            <th
+              style="border: 1px solid rgb(195, 195, 195)"
+              class="text-center"
+              [style.width]="tableHeaders.length / 100 + '%'"
+            >
+              {{ item }}
+            </th>
+            }
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-room>
+          <tr>
+            <!-- @for(item of tableHeaders; track $index){ -->
+            <td
+              style="border: 1px solid rgb(195, 195, 195)"
+              [style.width]="tableHeaders.length / 100 + '%'"
+              class="text-center font-bold"
+            >
+              {{ room.roomNo }}
+            </td>
+            @for(item of room.days; track $index){
+            <td
+              style="border: 1px solid rgb(195, 195, 195)"
+              [style.width]="tableHeaders.length / 100 + '%'"
+              [attr.colspan]="
+                item.daysForReservation && item.hasClient
+                  ? item.daysForReservation
+                  : undefined
+              "
+              class="text-center font-semibold text-medium"
+            >
+              @if(item.hasClient){
+              {{ item.clientName }}
+              @if(item.daysForReservation > 0){
+              <span>
+                -
+                {{ item.daysForReservation }} روز
+              </span>
+              } @if(item.providerName){ <span>- {{ item.providerName }} </span>}
+              }
+            </td>
+            }
+            <!-- } -->
+            <!-- <td style="width: 200px">
+        {{ customer.id }}
+      </td>
+      <td style="width: 200px">
+        <img
+          src="assets/demo/images/flag/flag_placeholder.png"
+          [class]="'flag flag-' + customer.country.code"
+          width="30"
+        />
+        <span class="image-text ml-2">{{ customer.country.name }}</span>
+      </td>
+      <td style="width: 200px">{{ customer.date }}</td>
+      <td style="width: 200px">{{ customer.company }}</td>
+      <td style="width: 200px">
+        <span [class]="'customer-badge status-' + customer.status">{{
+          customer.status
+        }}</span>
+      </td>
+      <td style="width: 200px">{{ customer.activity }}</td>
+      <td style="width: 200px">
+        <img
+          [alt]="customer.representative.name"
+          src="assets/demo/images/avatar/{{ customer.representative.image }}"
+          width="32"
+          style="vertical-align: middle"
+        />
+        <span class="image-text ml-2">{{ customer.representative.name }}</span>
+      </td>
+      <td style="width: 200px" class="font-bold"></td> -->
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

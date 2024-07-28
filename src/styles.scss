@@ -14,11 +14,10 @@ $gutter: 1rem; //for primeflex grid system
 @import "./../public/assets/scss/layout/layout.scss";
 @import "./../public/assets/scss/style.scss";
 
-body{
-    direction: rtl;
+body {
+  direction: rtl;
+  font-family: var(--bakh-fa-regular);
+  * {
     font-family: var(--bakh-fa-regular);
-    * {
-        font-family: var(--bakh-fa-regular);
-        direction: rtl;
-    }
+  }
 }
