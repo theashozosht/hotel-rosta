@@ -1,0 +1,105 @@
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="passengerForm">
+      <h5>ورود اطلاعات مسافر</h5>
+      <ng-container formArrayName="passengerArray">
+        @for (item of passengerForm.controls.passengerArray.controls; track
+        $index) {
+        <ng-container [formGroup]="item">
+          <div class="p-formgrid grid">
+            <div class="field col">
+              <label htmlFor="passengerName">نام و نام خانوادگی</label>
+              <input
+                pInputText
+                id="passengerName"
+                name="passengerName"
+                formControlName="passengerName"
+                type="text"
+              />
+            </div>
+            <div class="field col">
+              <label htmlFor="price">قیمت</label>
+              <input
+                pInputText
+                id="price"
+                name="price"
+                formControlName="price"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="p-formgrid grid">
+            <div class="field col">
+              <label htmlFor="roomNo">شماره اتاق</label>
+              <input
+                pInputText
+                id="roomNo"
+                name="roomNo"
+                formControlName="roomNo"
+                type="text"
+              />
+            </div>
+            <div class="field col">
+              <label htmlFor="providerName">نام آژانس</label>
+              <input
+                pInputText
+                id="providerName"
+                name="providerName"
+                formControlName="providerName"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="p-formgrid grid">
+            <div class="field col">
+              <label htmlFor="fromDate">از تاریخ</label>
+              <input
+                pInputText
+                id="fromDate"
+                name="fromDate"
+                formControlName="fromDate"
+                type="text"
+              />
+            </div>
+            <div class="field col">
+              <label htmlFor="toDate">تا تاریخ</label>
+              <input
+                pInputText
+                id="toDate"
+                name="toDate"
+                formControlName="toDate"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="p-formgrid grid">
+            <div class="field col">
+              <label htmlFor="passengerId">شماره شناسنامه</label>
+              <input
+                pInputText
+                id="passengerId"
+                name="passengerId"
+                formControlName="passengerId"
+                type="text"
+              />
+            </div>
+            <div class="field flex align-items-end col">
+              <p-toast></p-toast>
+              <button
+                (click)="confirm($event)"
+                pButton
+                icon="pi pi-check"
+                label="تایید اطلاعات"
+              ></button>
+              <p-confirmPopup key="confirmForm"></p-confirmPopup>
+            </div>
+          </div>
+        </ng-container>
+
+        }
+      </ng-container>
+
+      
+    </form>
+  </div>
+</div>

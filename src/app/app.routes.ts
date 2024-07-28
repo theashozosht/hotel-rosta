@@ -23,7 +23,14 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         loadComponent:
-            () => import('./pages/home/layout/layout.component').then(m => m.LayoutComponent)
+            () => import('./pages/home/layout/layout.component').then(m => m.LayoutComponent),
+            children: [
+                {
+                    path: 'home',
+                    loadComponent: 
+                    () => import('./pages/home/home.component').then(m => m.HomeComponent),
+                }
+            ]
     },
     {
         path: 'denied',
