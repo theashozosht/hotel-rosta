@@ -33,6 +33,10 @@
 }
 
 .layout-config-sidebar {
+    direction: ltr;
+    *{
+        direction: ltr;
+    }
     &.p-sidebar {
         .p-sidebar-content {
             padding-left: 2rem;

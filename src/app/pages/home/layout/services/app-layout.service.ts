@@ -1,4 +1,5 @@
-import { Injectable, effect, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, afterNextRender, effect, inject, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface AppConfig {
@@ -23,12 +24,14 @@ interface LayoutState {
     providedIn: 'root',
 })
 export class LayoutService {
+    private platformId = inject(PLATFORM_ID);
+    private document = inject(DOCUMENT)
     _config: AppConfig = {
         ripple: false,
         inputStyle: 'outlined',
         menuMode: 'static',
-        colorScheme: 'light',
-        theme: 'lara-light-indigo',
+        colorScheme: 'dark',
+        theme: 'md-dark-indigo',
         scale: 14,
     };
 
@@ -52,8 +55,25 @@ export class LayoutService {
     overlayOpen$ = this.overlayOpen.asObservable();
 
     constructor() {
+        effect(() => {
+            if (isPlatformBrowser(this.platformId)) {
+                debugger;
+                const config = this.config();
+                if (this.updateStyle(config)) {
+                    this.changeTheme();
+                }
+                this.changeScale(config.scale);
+                this.onConfigUpdate();
+            }
+        });
     }
 
+    updateStyle(config: AppConfig) {
+        return (
+            config.theme !== this._config.theme ||
+            config.colorScheme !== this._config.colorScheme
+        );
+    }
 
     onMenuToggle() {
         if (this.isOverlay()) {
@@ -99,5 +119,56 @@ export class LayoutService {
         return !this.isDesktop();
     }
 
-    
+    onConfigUpdate() {
+        this._config = { ...this.config() };
+        this.configUpdate.next(this.config());
+    }
+
+    changeTheme() {
+        const config = this.config();
+        const themeLink = <HTMLLinkElement>this.document.getElementById('theme-css');
+        const themeLinkHref = themeLink.getAttribute('href')!;
+        const newHref = themeLinkHref
+            .split('/')
+            .map((el) => {
+                debugger;
+                if (el == this._config.theme) {
+                    return (el = config.theme)
+                } else if (el == `theme-${this._config.colorScheme}`) {
+                    return (el = `theme-${config.colorScheme}`)
+                } else {
+                    el
+                }
+                return el == this._config.theme
+                    ? (el = config.theme)
+                    : el == `theme-${this._config.colorScheme}`
+                        ? (el = `theme-${config.colorScheme}`)
+                        : el
+            }
+            )
+            .join('/');
+        console.log(newHref)
+        this.replaceThemeLink(newHref);
+    }
+    replaceThemeLink(href: string) {
+        const id = 'theme-css';
+        let themeLink = <HTMLLinkElement>this.document.getElementById(id);
+        const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
+
+        cloneLinkElement.setAttribute('href', href);
+        cloneLinkElement.setAttribute('id', id + '-clone');
+
+        themeLink.parentNode!.insertBefore(
+            cloneLinkElement,
+            themeLink.nextSibling
+        );
+        cloneLinkElement.addEventListener('load', () => {
+            themeLink.remove();
+            cloneLinkElement.setAttribute('id', id);
+        });
+    }
+
+    changeScale(value: number) {
+        this.document.documentElement.style.fontSize = `${value}px`;
+    }
 }

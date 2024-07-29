@@ -6,11 +6,13 @@ import { LayoutService } from './services/app-layout.service';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
+import { AppConfigComponent } from './config/app.config.component';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, SidebarComponent, TopbarComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, AppConfigComponent,SidebarComponent, TopbarComponent, FooterComponent],
+  providers: [LayoutService],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })

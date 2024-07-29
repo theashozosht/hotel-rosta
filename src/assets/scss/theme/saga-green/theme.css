@@ -2013,10 +2013,10 @@
     transition-duration: 0.2s;
   }
   .p-button .p-button-icon-left {
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
   .p-button .p-button-icon-right {
-    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
   .p-button .p-button-icon-bottom {
     margin-top: 0.5rem;
@@ -4368,7 +4368,7 @@
     height: 1.5rem;
   }
   .p-confirm-popup .p-confirm-popup-message {
-    margin-left: 1rem;
+    margin-right: 1rem;
   }
 
   .p-dialog {
@@ -5871,7 +5871,7 @@
   .p-toast .p-toast-message.p-toast-message-info {
     background: #b3e5fc;
     border: solid #0891cf;
-    border-width: 0 0 0 6px;
+    border-width: 0 6px  0 0;
     color: #044868;
   }
   .p-toast .p-toast-message.p-toast-message-info .p-toast-message-icon,
@@ -5881,7 +5881,7 @@
   .p-toast .p-toast-message.p-toast-message-success {
     background: #c8e6c9;
     border: solid #439446;
-    border-width: 0 0 0 6px;
+    border-width: 0 6px 0 0 ;
     color: #224a23;
   }
   .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,
@@ -5891,7 +5891,7 @@
   .p-toast .p-toast-message.p-toast-message-warn {
     background: #ffecb3;
     border: solid #d9a300;
-    border-width: 0 0 0 6px;
+    border-width: 0 6px  0 0;
     color: #6d5100;
   }
   .p-toast .p-toast-message.p-toast-message-warn .p-toast-message-icon,
@@ -5901,7 +5901,7 @@
   .p-toast .p-toast-message.p-toast-message-error {
     background: #ffcdd2;
     border: solid #e60017;
-    border-width: 0 0 0 6px;
+    border-width: 0 6px 0 0;
     color: #73000c;
   }
   .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,

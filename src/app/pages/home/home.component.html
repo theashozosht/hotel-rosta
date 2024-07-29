@@ -1,7 +1,7 @@
 <div class="grid">
   <div class="col-12 md:col-6">
-    <form class="card p-fluid" [formGroup]="passengerForm">
-      <h5>ورود اطلاعات مسافر</h5>
+    <form class="card h-full p-fluid" [formGroup]="passengerForm">
+      <h5 class="font-bold text-500 text-2xl">ورود اطلاعات مسافر</h5>
       <ng-container formArrayName="passengerArray">
         @for (item of passengerForm.controls.passengerArray.controls; track
         $index) {
@@ -58,6 +58,7 @@
                 id="fromDate"
                 name="fromDate"
                 formControlName="fromDate"
+                placeholder="1400-01-01"
                 type="text"
               />
             </div>
@@ -68,6 +69,7 @@
                 id="toDate"
                 name="toDate"
                 formControlName="toDate"
+                placeholder="1400-01-01"
                 type="text"
               />
             </div>
@@ -83,15 +85,26 @@
                 type="text"
               />
             </div>
+            <div class="field col">
+              <label htmlFor="invoiceNo">شماره سربرگه</label>
+              <input
+                pInputText
+                id="invoiceNo"
+                name="invoiceNo"
+                formControlName="invoiceNo"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="p-formgrid grid">
             <div class="field flex align-items-end col">
               <p-toast></p-toast>
               <button
                 (click)="confirm($event)"
                 pButton
-                icon="pi pi-check"
                 label="تایید اطلاعات"
               ></button>
-              <p-confirmPopup key="confirmForm"></p-confirmPopup>
+              <!-- <p-confirmPopup key="confirmForm"></p-confirmPopup> -->
             </div>
           </div>
         </ng-container>
@@ -99,5 +112,52 @@
         }
       </ng-container>
     </form>
+  </div>
+  <div class="col-12 md:col-6 pb-0">
+    <div class="grid h-full">
+      @if(roomsData.length > 0){ @for (item of roomsData; track $index) {
+      <div class="col-12 lg:col-6 xl:col-4 pb-0 pl-2 pr-2">
+        <div class="card mb-0 h-full">
+          <div class="flex justify-content-between mb-3">
+            <span class="text-900 font-bold text-2xl flex align-items-center">
+              @if (item.hasClient) {
+              {{ item.name }}
+              } @else { اتاق خالی }
+            </span>
+            <div
+              class="flex align-items-center justify-content-center bg- bg-blue-500 border-round"
+              [ngClass]="{
+                'bg-red-400': item.hasClient && item.remainingDays === 0,
+                'bg-cyan-500': item.hasClient && item.remainingDays !== 0,
+                'bg-green-500': !item.hasClient
+              }"
+              style="width: 3rem; height: 3rem"
+            >
+              <span class="text-white font-bold text-2xl">
+                {{ item.roomNo }}
+              </span>
+            </div>
+          </div>
+          @if (item.hasClient){
+          <div>
+            <span class="text-500"> نام آژانس : </span>
+            <span class="text-900 font-bold text-2xl mr-2">{{
+              item.providersName ? item.providersName : "-"
+            }}</span>
+          </div>
+          } @if (item.remainingDays >=0 && item.hasClient) {
+          <span class="text-500">تعداد روز باقیمانده : </span>
+          <span
+            class="text-green-500 font-bold text-2xl mr-2"
+            [ngClass]="{ 'text-red-500': item.remainingDays >= 0 }"
+            >{{ item.remainingDays }} روز
+          </span>
+          } @else {
+          <span class="text-red-500 text-2xl font-bold">کسی اینجا نیست ! </span>
+          }
+        </div>
+      </div>
+      } }
+    </div>
   </div>
 </div>

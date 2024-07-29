@@ -26,11 +26,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "./assets",
-                "output": "dist/assets"
+                "input": "src/assets/",
+                "output": "/assets/"
               },
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "favicon.ico",
+                "input": "src/",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss",
@@ -92,11 +95,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "./assets",
-                "output": "dist/assets"
+                "input": "src/assets/",
+                "output": "/assets/"
               },
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "favicon.ico",
+                "input": "src/",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss",
