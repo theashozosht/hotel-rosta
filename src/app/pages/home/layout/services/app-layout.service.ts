@@ -57,7 +57,7 @@ export class LayoutService {
     constructor() {
         effect(() => {
             if (isPlatformBrowser(this.platformId)) {
-                debugger;
+                 
                 const config = this.config();
                 if (this.updateStyle(config)) {
                     this.changeTheme();
@@ -131,7 +131,7 @@ export class LayoutService {
         const newHref = themeLinkHref
             .split('/')
             .map((el) => {
-                debugger;
+                 
                 if (el == this._config.theme) {
                     return (el = config.theme)
                 } else if (el == `theme-${this._config.colorScheme}`) {

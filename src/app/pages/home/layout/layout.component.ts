@@ -12,7 +12,6 @@ import { AppConfigComponent } from './config/app.config.component';
   selector: 'app-layout',
   standalone: true,
   imports: [CommonModule, RouterModule, AppConfigComponent,SidebarComponent, TopbarComponent, FooterComponent],
-  providers: [LayoutService],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
