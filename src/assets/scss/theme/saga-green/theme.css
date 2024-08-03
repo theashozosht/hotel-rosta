@@ -918,7 +918,7 @@
 
   .p-colorpicker-preview,
 .p-fluid .p-colorpicker-preview.p-inputtext {
-    width: 2rem;
+    width: 6rem;
     height: 2rem;
   }
 
@@ -933,6 +933,8 @@
 
   .p-colorpicker-overlay-panel {
     box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    left: auto !important;
+    right: 0;
   }
 
   .p-dropdown {

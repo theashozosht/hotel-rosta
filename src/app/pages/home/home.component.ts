@@ -126,7 +126,7 @@ export class HomeComponent implements OnInit {
         hasClient: false,
         providersName: 'ادمین'
       },
-    ]).pipe(delay(2400)).subscribe(res => {
+    ])  .subscribe(res => {
       this.roomsData = res
     })
   }

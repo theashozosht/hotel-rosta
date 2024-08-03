@@ -50,7 +50,20 @@ export const routes: Routes = [
                         './pages/home/hotel-reservation/hotel-reservation.component'
                     ).then((m) => m.HotelReservationComponent),
             },
-
+            {
+                path: 'passenger-crud',
+                loadComponent: () =>
+                    import(
+                        './pages/home/passenger-crud/passenger-crud.component'
+                    ).then((m) => m.PassengerCrudComponent),
+            },
+            {
+                path: 'provider-crud',
+                loadComponent: () =>
+                    import(
+                        './pages/home/provider-crud/provider-crud.component'
+                    ).then((m) => m.ProviderCrudComponent),
+            },
         ],
     },
     {

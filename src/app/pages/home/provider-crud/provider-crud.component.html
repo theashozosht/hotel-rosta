@@ -1,0 +1,350 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <!-- Create Passenger -->
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="اضافه کردن"
+              style="direction: ltr"
+              class="p-button-success mr-2 font-semibold text-3xl"
+              (click)="openNew()"
+            >
+              <i class="pi pi-pw pi-plus mr-2"></i>
+            </button>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right"> </ng-template>
+      </p-toolbar>
+      <!-- Read Passenger -->
+      <p-table
+        #dt
+        [value]="providers"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [globalFilterFields]="[
+          'providerName',
+          'manager',
+          'coordinator',
+          'telephone',
+          'phoneNumber'
+        ]"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [(selection)]="selectedProviders"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="id"
+      >
+        <ng-template pTemplate="caption">
+          <div
+            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+          >
+            <h5 class="m-0 text-center md:text-right font-semibold text-3xl">
+              مدیریت آژانس‌ها
+            </h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                pInputText
+                type="text"
+                (input)="onGlobalFilter(dt, $event)"
+                placeholder="جستجو"
+                class="w-full sm:w-auto"
+              />
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            @for (item of columns; track $index) {
+            <th class="text-right text-2xl">{{ item.header }}</th>
+            }
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-provider>
+          <tr>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">providerName</span>
+              {{ provider.providerName }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">manager</span>
+              {{ provider.manager }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">coordinator</span>
+              {{ provider.coordinator }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">telephone</span>
+              {{ provider.telephone }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">phoneNumber</span>
+              {{ provider.phoneNumber }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">creditLimit</span>
+              {{ provider.creditLimit | number }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">contractType</span>
+              {{ contractTranslator(provider.contractType) }}
+            </td>
+            <td class="text-right text-2xl">
+              <span class="p-column-title">color</span>
+              <div
+                class="w-full h-5rem"
+                style="border-radius: 0.5rem"
+                [style.background]="provider.color"
+              ></div>
+            </td>
+            <!-- <td class="text-right text-2xl">
+              <span class="p-column-title">address</span>
+              {{ provider.address }}
+            </td> -->
+            <td class="text-right text-2xl">
+              <div class="flex justify-content-evenly">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  (click)="editProvider(provider)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteProvider(provider)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <!-- Edit Passenger -->
+    <p-dialog
+      [(visible)]="providerDialog"
+      [style]="{ width: '650px' }"
+      header="اطلاعات آژانس"
+      [modal]="true"
+      class="p-fluid"
+    >
+      <ng-template pTemplate="content">
+        <div class="field">
+          <label for="providerName">نام آژانس</label>
+          <input
+            type="text"
+            pInputText
+            id="providerName"
+            [(ngModel)]="provider.providerName"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.providerName
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.providerName"
+          >
+            نام آژانس الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="manager">مدیر مسئول</label>
+          <input
+            type="text"
+            pInputText
+            id="manager"
+            [(ngModel)]="provider.manager"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.manager
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.manager"
+          >
+            مدیر مسئول الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="coordinator">مسئول هماهنگی</label>
+          <input
+            type="text"
+            pInputText
+            id="coordinator"
+            [(ngModel)]="provider.coordinator"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.coordinator
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.coordinator"
+          >
+            مسئول هماهنگی الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="telephone">تلفن ثابت</label>
+          <input
+            type="text"
+            pInputText
+            id="telephone"
+            [(ngModel)]="provider.telephone"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.telephone
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.telephone"
+          >
+            تلفن ثابت الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="phoneNumber">تلفن همراه</label>
+          <input
+            type="text"
+            pInputText
+            id="phoneNumber"
+            [(ngModel)]="provider.phoneNumber"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.phoneNumber
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.phoneNumber"
+          >
+            تلفن همراه الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="creditLimit">سقف اعتبار</label>
+          <input
+            type="text"
+            pInputText
+            id="creditLimit"
+            [(ngModel)]="provider.creditLimit"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.creditLimit
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.creditLimit"
+          >
+            سقف اعتبار الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="contractType">نوع قرارداد</label>
+          <p-dropdown
+            [(ngModel)]="provider.contractType"
+            inputId="contractType"
+            optionValue="label"
+            [options]="contractTypes"
+            placeholder="انتخاب"
+          >
+            <ng-template pTemplate="selectedItem">
+              <span *ngIf="provider && provider.contractType" class="text-2xl">
+                {{ provider.contractType }}
+              </span>
+            </ng-template>
+            <ng-template let-option pTemplate="item">
+              <span [class]="'provider-badge contractType-' + option.value">{{
+                option.label
+              }}</span>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="field">
+          <label>رنگ آژانس</label>
+          <p-colorPicker [(ngModel)]="provider.color"></p-colorPicker>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          label="ذخیره"
+          icon="pi pi-check"
+          class="p-button-text"
+          (click)="saveProvider()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          label="انصراف"
+          icon="pi pi-times"
+          class="p-button-text"
+          (click)="hideDialog()"
+        ></button>
+      </ng-template>
+    </p-dialog>
+    <!-- Delete Passenger -->
+    <p-dialog
+      [(visible)]="deleteProviderDialog"
+      header="تاییدیه"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-start">
+        <i
+          class="pi pi-exclamation-triangle ml-3 align-self-start"
+          style="font-size: 2rem"
+        ></i>
+        <span class="text-2xl" *ngIf="provider">
+          آیا از حذف آژانس با نام
+          <b class="font-bold text-3xl">{{ provider.providerName }}</b>
+          مطمئن هستید ؟
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text text-2xl"
+          label="بلی"
+          (click)="confirmDelete()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text text-2xl"
+          label="خیر"
+          (click)="deleteProviderDialog = false"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
