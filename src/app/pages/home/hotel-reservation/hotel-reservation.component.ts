@@ -693,6 +693,228 @@ export class HotelReservationComponent implements OnInit {
         },
       ],
     },
+    {
+      roomNo: '401',
+      days: [
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+      ],
+    },
+    {
+      roomNo: '402',
+      days: [
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          hasClient: false,
+        },
+      ],
+    },
+    {
+      roomNo: '403',
+      days: [
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          clientName: 'یاسین سطوتی',
+          hasClient: true,
+          daysForReservation: 4,
+          providerName: 'جاباما',
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+        {
+          hasClient: false,
+        },
+      ],
+    },
   ];
   protected tableHeaders: Array<any> = [];
 

@@ -30,6 +30,7 @@ export class SidebarComponent {
         items: [
           { label: 'داشبورد', icon: 'pi pi-fw pi-home text-xl', routerLink: ['/dashboard/home'] },
           { label: 'لیست اتاق‌ها', icon: 'pi pi-fw pi-table text-xl', routerLink: ['/dashboard/reservation'] },
+          { label: 'لیست رزرو', icon: 'pi pi-fw pi-building text-xl', routerLink: ['/dashboard/reserve-list'] },
           { label: 'مسافران', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger-crud'] },
           { label: 'آژانس‌ها', icon: 'pi pi-fw pi-link text-xl', routerLink: ['/dashboard/provider-crud'] },
           { label: 'خروج از حساب', icon: 'pi pi-fw pi-sign-out text-xl', hasCallBack: true, callBack: this.logOut.bind(this)  },

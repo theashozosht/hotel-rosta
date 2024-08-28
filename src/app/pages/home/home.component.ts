@@ -126,6 +126,27 @@ export class HomeComponent implements OnInit {
         hasClient: false,
         providersName: 'ادمین'
       },
+      {
+        roomNo: 401,
+        name: null,
+        remainingDays: null,
+        hasClient: false,
+        providersName: 'جاباما'
+      },
+      {
+        roomNo: 402,
+        name: 'یاسین سطوتی',
+        remainingDays: 0,
+        hasClient: true,
+        providersName: null
+      },
+      {
+        roomNo: 403,
+        name: null,
+        remainingDays: null,
+        hasClient: false,
+        providersName: 'ادمین'
+      },
     ])  .subscribe(res => {
       this.roomsData = res
     })

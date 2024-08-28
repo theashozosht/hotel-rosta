@@ -64,6 +64,13 @@ export const routes: Routes = [
                         './pages/home/provider-crud/provider-crud.component'
                     ).then((m) => m.ProviderCrudComponent),
             },
+            {
+                path: 'reserve-list',
+                loadComponent: () =>
+                    import(
+                        './pages/home/reserve-list/reserve-list.component'
+                    ).then((m) => m.ReserveCrudComponent),
+            },
         ],
     },
     {
