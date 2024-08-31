@@ -65,42 +65,42 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             @for (item of columns; track $index) {
-            <th class="text-right text-2xl">{{ item.header }}</th>
+            <th class="text-right text-2xl text-nowrap">{{ item.header }}</th>
             }
             <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-provider>
           <tr>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">providerName</span>
               {{ provider.providerName }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">manager</span>
               {{ provider.manager }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">coordinator</span>
               {{ provider.coordinator }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">telephone</span>
               {{ provider.telephone }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">phoneNumber</span>
               {{ provider.phoneNumber }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">creditLimit</span>
               {{ provider.creditLimit | number }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">contractType</span>
               {{ contractTranslator(provider.contractType) }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">color</span>
               <div
                 class="w-full h-5rem"
@@ -108,11 +108,11 @@
                 [style.background]="provider.color"
               ></div>
             </td>
-            <!-- <td class="text-right text-2xl">
+            <!-- <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">address</span>
               {{ provider.address }}
             </td> -->
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <div class="flex justify-content-evenly">
                 <button
                   pButton

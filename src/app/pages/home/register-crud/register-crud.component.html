@@ -65,48 +65,48 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             @for (item of columns; track $index) {
-              <th class="text-right text-2xl">{{item.header}}</th>
+              <th class="text-right text-2xl text-nowrap">{{item.header}}</th>
             }
             <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
           <tr>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">PassengerName</span>
               {{ product.passengerName }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">PassengerID</span>
               {{ product.passengerID }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">BirthDate</span>
               {{ product.birthDate }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">PhoneNumber</span>
               {{ product.phoneNumber }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">fromDate</span>
               {{ product.fromDate }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">toDate</span>
               {{ product.toDate }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">lastRegisterId</span>
               {{ product.lastRegisterId }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">Status</span>
               <span class="text-2xl">
                 {{ statusTranslator(product.status) }}
               </span>
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <div class="flex justify-content-evenly">
                 <button
                   pButton

@@ -1,5 +1,5 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { StaticName } from '../constants/static-name';
+import { StaticName } from '@core/constants';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 

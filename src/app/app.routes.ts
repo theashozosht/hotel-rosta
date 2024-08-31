@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, sessionGuard } from './core/guards/session.guard';
+import { authGuard, sessionGuard } from '@core/guards';
 
 export const routes: Routes = [
     {
@@ -51,6 +51,25 @@ export const routes: Routes = [
                     ).then((m) => m.HotelReservationComponent),
             },
             {
+                path: 'reserve',
+                children: [
+                    {
+                        path: 'list',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/reserve/reserve-list.component'
+                            ).then((m) => m.ReserveCrudComponent),
+                        },
+                        {
+                            path: 'form',
+                            loadComponent: () =>
+                                import(
+                                    './pages/home/reserve/form/form.component'
+                                ).then((m) => m.ReserveFormComponent),
+                    }
+                ]
+            },
+            {
                 path: 'passenger-crud',
                 loadComponent: () =>
                     import(
@@ -63,13 +82,6 @@ export const routes: Routes = [
                     import(
                         './pages/home/provider-crud/provider-crud.component'
                     ).then((m) => m.ProviderCrudComponent),
-            },
-            {
-                path: 'reserve-list',
-                loadComponent: () =>
-                    import(
-                        './pages/home/reserve-list/reserve-list.component'
-                    ).then((m) => m.ReserveCrudComponent),
             },
         ],
     },

@@ -1,0 +1,1 @@
+export * from './jalali-date/jalali-date.pipe'

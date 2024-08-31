@@ -1,0 +1,239 @@
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="roomsFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات اتاق</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="roomNumber">شماره اتاق</label>
+          <input
+            pInputText
+            name="roomNumber"
+            formControlName="roomNumber"
+            id="roomNumber"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="roomType">نوع اتاق</label>
+          <input
+            pInputText
+            name="roomType"
+            formControlName="roomType"
+            id="roomType"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="registerId">شماره ریجستر</label>
+          <input
+            pInputText
+            name="registerId"
+            formControlName="registerId"
+            id="registerId"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="roomPrice">قیمت اتاق</label>
+          <input
+            pInputText
+            name="roomPrice"
+            formControlName="roomPrice"
+            id="roomPrice"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="reserveStart">تاریخ ورود</label>
+          <input
+            pInputText
+            name="reserveStart"
+            formControlName="reserveStart"
+            id="reserveStart"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="reserveEnd">تاریخ خروج</label>
+          <input
+            pInputText
+            name="reserveEnd"
+            formControlName="reserveEnd"
+            id="reserveEnd"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="reservedBy">مسئول رزرو</label>
+          <input
+            pInputText
+            name="reservedBy"
+            formControlName="reservedBy"
+            id="reservedBy"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="receivedBy">مسئول تحویل</label>
+          <input
+            pInputText
+            name="receivedBy"
+            formControlName="receivedBy"
+            id="receivedBy"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="reserveCode">کد رزرو</label>
+          <input
+            pInputText
+            name="reserveCode"
+            formControlName="reserveCode"
+            id="reserveCode"
+            type="text"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="passengerFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات مسافر</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="firstName">نام</label>
+          <input
+            pInputText
+            name="firstName"
+            formControlName="firstName"
+            id="firstName"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="lastName">نام خانوادگی</label>
+          <input
+            pInputText
+            name="lastName"
+            formControlName="lastName"
+            id="lastName"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="fathersName">نام پدر</label>
+          <input
+            pInputText
+            name="fathersName"
+            formControlName="fathersName"
+            id="fathersName"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="nationalNumber">شماره شناسنامه</label>
+          <input
+            pInputText
+            name="nationalNumber"
+            formControlName="nationalNumber"
+            id="nationalNumber"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="nationalId">کد ملی</label>
+          <input
+            pInputText
+            name="nationalId"
+            formControlName="nationalId"
+            id="nationalId"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="phoneNumber">شماره همراه</label>
+          <input
+            pInputText
+            name="phoneNumber"
+            formControlName="phoneNumber"
+            id="phoneNumber"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="birthDate">تاریخ تولد</label>
+          <input
+            pInputText
+            name="birthDate"
+            formControlName="birthDate"
+            id="birthDate"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="birthLocation">محل تولد</label>
+          <input
+            pInputText
+            name="birthLocation"
+            formControlName="birthLocation"
+            id="birthLocation"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="nationalityType">ملیت</label>
+          <input
+            pInputText
+            name="nationalityType"
+            formControlName="nationalityType"
+            id="nationalityType"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="genderType">جنسیت</label>
+		  <p-dropdown [options]="genderTypes" dataKey="code" optionLabel="name" formControlName="genderType" name="genderType"></p-dropdown>
+
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="carsPlateNumber">شماره پلاک ماشین</label>
+          <input
+            pInputText
+            name="carsPlateNumber"
+            formControlName="carsPlateNumber"
+            id="carsPlateNumber"
+            type="text"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl " htmlFor="postalCode">کد پستی</label>
+          <input
+            pInputText
+            name="postalCode"
+            formControlName="postalCode"
+            id="postalCode"
+            type="text"
+          />
+        </div>
+      
+        <div class="field col-12">
+          <label class="text-2xl " htmlFor="address">آدرس</label>
+          <input
+            pInputText
+            name="address"
+            formControlName="address"
+            id="address"
+            type="text"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

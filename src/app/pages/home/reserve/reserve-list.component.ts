@@ -16,6 +16,7 @@ import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { of } from 'rxjs';
 import { ReserveList } from './models/interfaces/reserve.interface';
+import { JalaliPipe } from '@core/pipes';
 
 @Component({
   selector: 'app-register-crud',
@@ -34,7 +35,9 @@ import { ReserveList } from './models/interfaces/reserve.interface';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule],
+    DialogModule,
+    JalaliPipe
+  ],
   providers: [MessageService],
   templateUrl: './reserve-list.component.html',
   styleUrl: './reserve-list.component.scss'
@@ -62,7 +65,7 @@ export class ReserveCrudComponent {
         roomNumber: 101,
         roomDescription: 'توضیحات',
         hasAlternatePassengers: false,
-        passengers: { name: 'یاسین سطوتی' },
+        passengers: { firstName: 'یاسین ', lastName: 'سطوتی' },
         startDate: new Date(),
         endDate: new Date(),
         reservedBy: 'محمد محمدی',
@@ -73,7 +76,7 @@ export class ReserveCrudComponent {
         roomNumber: 102,
         roomDescription: '  توضیحات اضافه',
         hasAlternatePassengers: false,
-        passengers: { name: 'یاسین سطوتی' },
+        passengers: { firstName: 'یاسین ', lastName: 'سطوتی' },
         startDate: new Date(),
         endDate: new Date(),
         reservedBy: 'محمد محمدی',
@@ -84,8 +87,6 @@ export class ReserveCrudComponent {
     this.cols = [
       { field: 'reserveCode', header: 'کد رزرو' },
       { field: 'roomNumber', header: 'شماره اتاق' },
-      { field: 'roomDescription', header: 'توضیحات' },
-      { field: 'hasAlternatePassengers', header: 'مسافر اضافه' },
       { field: 'passengers', header: 'نام مسافر' },
       { field: 'startDate', header: 'شروع رزرو' },
       { field: 'endDate', header: 'اتمام رزرو' },
@@ -100,7 +101,7 @@ export class ReserveCrudComponent {
   }
   editReserve(...arg: any): any { }
   deleteReserve(...arg: any): any { }
-  
+
   findIndexById(reserveCode: string): number {
     let index = -1;
     for (let i = 0; i < this.reserves.length; i++) {

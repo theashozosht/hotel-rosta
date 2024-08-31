@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -16,6 +16,8 @@ import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { of } from 'rxjs';
 import { PassengerListResponse, PassengerPaymentStatus } from './models';
+import { PassengerDataAccessService } from '@core/services';
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-register-crud',
   standalone: true,
@@ -33,8 +35,9 @@ import { PassengerListResponse, PassengerPaymentStatus } from './models';
     DropdownModule,
     RadioButtonModule,
     InputNumberModule,
-    DialogModule],
-  providers: [MessageService],
+    DialogModule,
+    HttpClientModule],
+  providers: [MessageService, PassengerDataAccessService],
   templateUrl: './passenger-crud.component.html',
   styleUrl: './passenger-crud.component.scss'
 })
@@ -47,8 +50,11 @@ export class PassengerCrudComponent {
   cols: any[] = [];
   statuses: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
+  private _passengerService = inject(PassengerDataAccessService)
 
-  constructor(private messageService: MessageService) { }
+  constructor(private messageService: MessageService) {
+    this._passengerService.findAll().subscribe((res: any) => console.log(res))
+  }
 
   ngOnInit() {
     of([

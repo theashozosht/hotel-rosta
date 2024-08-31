@@ -1,6 +1,5 @@
 <div class="grid">
   <div class="col-12">
-    
     <div class="card px-6 py-6">
       <p-toast></p-toast>
       <!-- Read Passenger -->
@@ -28,7 +27,7 @@
             class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
           >
             <h5 class="m-0 text-center md:text-right font-semibold text-3xl">
-              مدیریت رزرو
+              لیست رزرو
             </h5>
             <span class="block mt-2 md:mt-0 p-input-icon-left">
               <i class="pi pi-search"></i>
@@ -45,42 +44,44 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             @for (item of columns; track $index) {
-              <th class="text-right text-2xl">{{item.header}}</th>
+            <th class="text-right text-2xl text-nowrap">{{ item.header }}</th>
             }
             <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reserve>
           <tr>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">reserveCode</span>
               {{ reserve.reserveCode }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">roomNumber</span>
               {{ reserve.roomNumber }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">passengers</span>
-              {{ reserve.passengers.firstName + ' ' + reserve.passengers.lastName}}
+              {{
+                reserve.passengers.firstName + " " + reserve.passengers.lastName
+              }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">startDate</span>
-              {{ reserve.startDate }}
+              {{ reserve.startDate | jdate }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">endDate</span>
-              {{ reserve.endDate }}
+              {{ reserve.endDate | jdate }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">reservedBy</span>
               {{ reserve.reservedBy }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">receivedBy</span>
               {{ reserve.receivedBy }}
             </td>
-            <td class="text-right text-2xl">
+            <td class="text-right text-2xl  text-nowrap">
               <div class="flex justify-content-evenly">
                 <button
                   pButton

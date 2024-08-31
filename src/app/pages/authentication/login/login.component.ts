@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { delay, map, of, throwError } from 'rxjs';
-import { StaticName } from '../../../core/constants/static-name';
+import { StaticName } from '@core/constants';
 
 @Component({
   selector: 'app-login',

@@ -1,0 +1,5 @@
+export * from './room.interface'
+export * from './agency.interface'
+export * from './passenger.interface'
+export * from './register.interface'
+export * from './reserve.interface'
