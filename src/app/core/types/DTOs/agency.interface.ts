@@ -2,7 +2,7 @@ import { AgencyStatus, ContractTypes, RegisterDataAccess } from "@core/types";
 
 export interface AgencyDataAccess {
     agencyName: string;
-    agencyCode: number;
+    agencyCode: number | string;
     agencyStatus: AgencyStatus;
     contractType: ContractTypes;
     hasCredit: boolean;

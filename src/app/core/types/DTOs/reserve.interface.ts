@@ -13,3 +13,15 @@ export interface ReserveDataAccess {
     register: RegisterDataAccess;
     passengers: PassengerDataAccess[];
 }
+
+export interface ReserveDataAccessDTO {
+    reserveCode: number;
+    roomNumber: number;
+    roomDescription: string;
+    hasAlternatePassengers: boolean;
+    startDate: Date;
+    endDate: Date;
+    reservedBy: string;
+    receivedBy: string;
+    passengers: PassengerDataAccess;
+}

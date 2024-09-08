@@ -120,37 +120,37 @@
         <div class="card mb-0 h-full">
           <div class="flex justify-content-between mb-3">
             <span class="text-900 font-bold text-2xl flex align-items-center">
-              @if (item.hasClient) {
-              {{ item.name }}
+              @if (item.isRoomFull) {
+              {{ item.passengers.firstName + item.passengers.lastName   }}
               } @else { اتاق خالی }
             </span>
             <div
               class="flex align-items-center justify-content-center bg- bg-blue-500 border-round"
               [ngClass]="{
-                'bg-red-400': item.hasClient && item.remainingDays === 0,
-                'bg-cyan-500': item.hasClient && item.remainingDays !== 0,
-                'bg-green-500': !item.hasClient
+                'bg-red-400': item.isRoomFull && daysRemaining(item.reservedFrom, item.reservedUntil) === 0,
+                'bg-cyan-500': item.isRoomFull && daysRemaining(item.reservedFrom, item.reservedUntil) !== 0,
+                'bg-green-500': !item.isRoomFull
               }"
               style="width: 3rem; height: 3rem"
             >
               <span class="text-white font-bold text-2xl">
-                {{ item.roomNo }}
+                {{ item.roomNumber }}
               </span>
             </div>
           </div>
-          @if (item.hasClient){
+          @if (item.isRoomFull){
           <div>
             <span class="text-500"> نام آژانس : </span>
             <span class="text-900 font-bold text-2xl mr-2">{{
-              item.providersName ? item.providersName : "-"
+              item.agencyName ? item.agencyName : "-"
             }}</span>
           </div>
-          } @if (item.remainingDays >=0 && item.hasClient) {
+          } @if (daysRemaining(item.reservedFrom, item.reservedUntil) >= 0 && item.isRoomFull) {
           <span class="text-500">تعداد روز باقیمانده : </span>
           <span
             class="text-green-500 font-bold text-2xl mr-2"
-            [ngClass]="{ 'text-red-500': item.remainingDays >= 0 }"
-            >{{ item.remainingDays }} روز
+            [ngClass]="{ 'text-red-500': daysRemaining(item.reservedFrom, item.reservedUntil) >= 0 }"
+            >{{ daysRemaining(item.reservedFrom, item.reservedUntil) }} روز
           </span>
           } @else {
           <span class="text-red-500 text-2xl font-bold">کسی اینجا نیست ! </span>

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ReserveDataAccessService implements BaseDataAccess<ReserveDataAccess> {
     private httpClient = inject(HttpClient)
     private _apiBaseUrl = environment.apiBaseUrl + 'reserve'
-    create(createEntityDto: ReserveDataAccess): Observable<BaseResponse<ReserveDataAccess>> {
+    create(createEntityDto: Omit<ReserveDataAccess, 'agency' | 'register' | 'passengers'>): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.post<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl, createEntityDto)
     }
     findAll(): Observable<BaseResponse<ReserveDataAccess[]>> {

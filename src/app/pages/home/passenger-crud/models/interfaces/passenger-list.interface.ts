@@ -8,5 +8,5 @@ export interface PassengerListResponse {
         fromDate: string | Date,
         toDate: string | Date,
         lastRegisterId: string | number,
-        status:  PassengerPaymentStatus,
+        status: PassengerPaymentStatus,      
 }

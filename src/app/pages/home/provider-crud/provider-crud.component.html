@@ -73,8 +73,12 @@
         <ng-template pTemplate="body" let-provider>
           <tr>
             <td class="text-right text-2xl  text-nowrap">
-              <span class="p-column-title">providerName</span>
-              {{ provider.providerName }}
+              <span class="p-column-title">agencyName</span>
+              {{ provider.agencyName }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">agencyCode</span>
+              {{ provider.agencyCode }}
             </td>
             <td class="text-right text-2xl  text-nowrap">
               <span class="p-column-title">manager</span>
@@ -144,23 +148,43 @@
     >
       <ng-template pTemplate="content">
         <div class="field">
-          <label for="providerName">نام آژانس</label>
+          <label for="agencyName">نام آژانس</label>
           <input
             type="text"
             pInputText
-            id="providerName"
-            [(ngModel)]="provider.providerName"
+            id="agencyName"
+            [(ngModel)]="provider.agencyName"
             required
             autofocus
             [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !provider.providerName
+              'ng-invalid ng-dirty': submitted && !provider.agencyName
             }"
           />
           <small
             class="ng-dirty ng-invalid"
-            *ngIf="submitted && !provider.providerName"
+            *ngIf="submitted && !provider.agencyName"
           >
             نام آژانس الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="agencyCode">کد آژانس</label>
+          <input
+            type="text"
+            pInputText
+            id="agencyCode"
+            [(ngModel)]="provider.agencyCode"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.agencyCode
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.agencyCode"
+          >
+            کد آژانس الزامی است
           </small>
         </div>
         <div class="field">
@@ -244,23 +268,43 @@
           </small>
         </div>
         <div class="field">
-          <label for="creditLimit">سقف اعتبار</label>
+          <label for="creditLeft">سقف اعتبار</label>
           <input
             type="text"
             pInputText
-            id="creditLimit"
-            [(ngModel)]="provider.creditLimit"
+            id="creditLeft"
+            [(ngModel)]="provider.creditLeft"
             required
             autofocus
             [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !provider.creditLimit
+              'ng-invalid ng-dirty': submitted && !provider.creditLeft
             }"
           />
           <small
             class="ng-dirty ng-invalid"
-            *ngIf="submitted && !provider.creditLimit"
+            *ngIf="submitted && !provider.creditLeft"
           >
             سقف اعتبار الزامی است
+          </small>
+        </div>
+        <div class="field">
+          <label for="address">آدرس آژانس</label>
+          <input
+            type="text"
+            pInputText
+            id="address"
+            [(ngModel)]="provider.address"
+            required
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': submitted && !provider.address
+            }"
+          />
+          <small
+            class="ng-dirty ng-invalid"
+            *ngIf="submitted && !provider.address"
+          >
+            آدرس آژانس الزامی است
           </small>
         </div>
         <div class="field">
@@ -269,6 +313,7 @@
             [(ngModel)]="provider.contractType"
             inputId="contractType"
             optionValue="label"
+
             [options]="contractTypes"
             placeholder="انتخاب"
           >
@@ -279,6 +324,27 @@
             </ng-template>
             <ng-template let-option pTemplate="item">
               <span [class]="'provider-badge contractType-' + option.value">{{
+                option.label
+              }}</span>
+            </ng-template>
+          </p-dropdown>
+        </div>
+        <div class="field">
+          <label for="agencyStatus">وضعیت آژانس</label>
+          <p-dropdown
+            [(ngModel)]="provider.agencyStatus"
+            inputId="agencyStatus"
+            optionValue="label"
+            [options]="agencyStatuses"
+            placeholder="انتخاب"
+          >
+            <ng-template pTemplate="selectedItem">
+              <span *ngIf="provider && provider.agencyStatus" class="text-2xl">
+                {{ provider.agencyStatus }}
+              </span>
+            </ng-template>
+            <ng-template let-option pTemplate="item">
+              <span [class]="'provider-badge agencyStatus-' + option.value">{{
                 option.label
               }}</span>
             </ng-template>
@@ -323,7 +389,7 @@
         ></i>
         <span class="text-2xl" *ngIf="provider">
           آیا از حذف آژانس با نام
-          <b class="font-bold text-3xl">{{ provider.providerName }}</b>
+          <b class="font-bold text-3xl">{{ provider.agencyName }}</b>
           مطمئن هستید ؟
         </span>
       </div>

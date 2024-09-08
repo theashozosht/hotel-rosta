@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class AgencyDataAccessService implements BaseDataAccess<AgencyDataAccess> {
     private httpClient = inject(HttpClient)
     private _apiBaseUrl = environment.apiBaseUrl + 'agency'
+
     create(createEntityDto: AgencyDataAccess): Observable<BaseResponse<AgencyDataAccess>> {
         return this.httpClient.post<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl, createEntityDto)
     }

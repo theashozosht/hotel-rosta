@@ -16,6 +16,9 @@ import {
 } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { delay, of } from 'rxjs';
+import { RoomDataAccessService } from '@core/services';
+import { RoomDataAccess } from '@core/types';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -30,15 +33,18 @@ import { delay, of } from 'rxjs';
     ConfirmDialogModule,
     ConfirmPopupModule,
     ToastModule,
+    HttpClientModule
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService, MessageService,  RoomDataAccessService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   private confirmationService = inject(ConfirmationService);
   private messageService = inject(MessageService);
-  protected roomsData: Array<any> = []
+  private _roomsService = inject(RoomDataAccessService)
+  
+  protected roomsData: Array<RoomDataAccess> = []
   protected skipDateChecker: boolean = false;
   passengerForm = new FormGroup({
     passengerArray: new FormArray([
@@ -62,93 +68,8 @@ export class HomeComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    of([
-      {
-        roomNo: 101,
-        name: 'یاسین سطوتی',
-        remainingDays:1,
-        hasClient: true,
-        providersName: null
-      },
-      {
-        roomNo: 102,
-        name: 'یاسین سطوتی',
-        remainingDays: 8,
-        hasClient: true,
-        providersName: null
-      },
-      {
-        roomNo: 103,
-        name: 'یاسین سطوتی',
-        remainingDays: 5,
-        hasClient: true,
-        providersName: null
-      },
-      {
-        roomNo: 201,
-        name: 'یاسین سطوتی',
-        remainingDays: 2,
-        hasClient: true,
-        providersName: 'جاباما'
-      },
-      {
-        roomNo: 202,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'جاباما'
-      },
-      {
-        roomNo: 203,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'ادمین'
-      },
-      {
-        roomNo: 301,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'جاباما'
-      },
-      {
-        roomNo: 302,
-        name: 'یاسین سطوتی',
-        remainingDays: 0,
-        hasClient: true,
-        providersName: null
-      },
-      {
-        roomNo: 303,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'ادمین'
-      },
-      {
-        roomNo: 401,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'جاباما'
-      },
-      {
-        roomNo: 402,
-        name: 'یاسین سطوتی',
-        remainingDays: 0,
-        hasClient: true,
-        providersName: null
-      },
-      {
-        roomNo: 403,
-        name: null,
-        remainingDays: null,
-        hasClient: false,
-        providersName: 'ادمین'
-      },
-    ])  .subscribe(res => {
-      this.roomsData = res
+    this._roomsService.findAll().subscribe(res => {
+      this.roomsData = res.result
     })
   }
 
@@ -193,5 +114,19 @@ export class HomeComponent implements OnInit {
         toDate,
       } = this.passengerForm.controls.passengerArray.controls[i].value;
     }
+  }
+
+  daysRemaining(dateStart: Date, dateEnd: Date): number {
+    let date1 = new Date(dateStart);
+    let date2 = new Date(dateEnd);
+
+    let Difference_In_Time =
+        date2.getTime() - date1.getTime();
+
+    let Difference_In_Days =
+        Math.round
+            (Difference_In_Time / (1000 * 3600 * 24)) + 5;
+
+    return Difference_In_Days 
   }
 }

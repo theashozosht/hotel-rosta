@@ -83,6 +83,10 @@
               "buildTarget": "rosta-hotel:build:development"
             }
           },
+          "options": {
+            "browserTarget": "rosta-hotel:build",
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
