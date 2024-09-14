@@ -6,7 +6,7 @@ export interface PassengerDataAccess {
     nationalID: string;
     phoneNumber: string;
     lastEndDate?: Date
-    lastRegisterNumber: number;
+    lastRegisterNumber?: number;
     registerObj?: RegisterDataAccess;
     birthDate: Date;
     paymentStatus?: PaymentStatus

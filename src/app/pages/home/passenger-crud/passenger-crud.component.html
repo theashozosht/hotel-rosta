@@ -1,6 +1,5 @@
 <div class="grid">
   <div class="col-12">
-    
     <div class="card px-6 py-6">
       <p-toast></p-toast>
       <!-- Create Passenger -->
@@ -29,12 +28,6 @@
         [columns]="cols"
         responsiveLayout="scroll"
         [rows]="10"
-        [globalFilterFields]="[
-          'passengerName',
-          'passengerID',
-          'lastRegisterId',
-          'phoneNumber'
-        ]"
         [rowsPerPageOptions]="[10, 20, 30]"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -64,7 +57,7 @@
         <ng-template pTemplate="header" let-columns>
           <tr>
             @for (item of columns; track $index) {
-              <th class="text-right text-2xl text-nowrap">{{item.header}}</th>
+            <th class="text-right text-2xl text-nowrap">{{ item.header }}</th>
             }
             <th></th>
           </tr>
@@ -72,37 +65,33 @@
         <ng-template pTemplate="body" let-passenger>
           <tr>
             <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">PassengerName</span>
-              {{ passenger.passengerName }}
+              <span class="p-column-title">firstName</span>
+              {{ passenger.firstName + " " + passenger.lastName }}
             </td>
             <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">PassengerID</span>
-              {{ passenger.passengerID }}
-            </td>
-            <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">BirthDate</span>
-              {{ passenger.birthDate }}
+              <span class="p-column-title">nationalID</span>
+              {{ passenger.nationalID }}
             </td>
             <td class="text-right text-2xl text-nowrap">
               <span class="p-column-title">PhoneNumber</span>
               {{ passenger.phoneNumber }}
             </td>
             <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">fromDate</span>
-              {{ passenger.fromDate }}
+              <span class="p-column-title">birthDate</span>
+              {{ passenger.birthDate | jdate }}
             </td>
             <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">toDate</span>
-              {{ passenger.toDate }}
+              <span class="p-column-title">lastEndDate</span>
+              {{ passenger.lastEndDate | jdate }}
             </td>
             <td class="text-right text-2xl text-nowrap">
-              <span class="p-column-title">lastRegisterId</span>
-              {{ passenger.lastRegisterId }}
+              <span class="p-column-title">lastRegisterNumber</span>
+              {{ passenger.lastRegisterNumber }}
             </td>
             <td class="text-right text-2xl text-nowrap">
               <span class="p-column-title">Status</span>
               <span class="text-2xl">
-                {{ statusTranslator(passenger.status) }}
+                {{ statusTranslator(passenger.paymentStatus) }}
               </span>
             </td>
             <td class="text-right text-2xl text-nowrap">
@@ -128,167 +117,168 @@
       </p-table>
     </div>
     <!-- Edit Passenger -->
+    @if(passengerDialogCreate || passengerDialogEdit){
     <p-dialog
-      [(visible)]="passengerDialog"
+      [(visible)]="passengerDialogEdit"
       [style]="{ width: '650px' }"
       header="اطلاعات مسافر"
       [modal]="true"
       class="p-fluid"
     >
       <ng-template pTemplate="content">
-        <div class="field">
-          <label for="passengerName">نام مسافر</label>
-          <input
-            type="text"
-            pInputText
-            id="passengerName"
-            [(ngModel)]="passenger.passengerName"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.passengerName
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.passengerName"
-          >
-            نام مسافر الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="passengerID">شماره شناسنامه</label>
-          <input
-            type="text"
-            pInputText
-            id="passengerID"
-            [(ngModel)]="passenger.passengerID"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.passengerID
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.passengerID"
-          >
-            شماره شناسنامه الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="birthDate">تاریخ تولد</label>
-          <input
-            type="text"
-            pInputText
-            id="birthDate"
-            [(ngModel)]="passenger.birthDate"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.birthDate
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.birthDate"
-          >
-            تاریخ تولد الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="phoneNumber">شماره همراه</label>
-          <input
-            type="text"
-            pInputText
-            id="phoneNumber"
-            [(ngModel)]="passenger.phoneNumber"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.phoneNumber
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.phoneNumber"
-          >
-            شماره همراه الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="fromDate">تاریخ شروع</label>
-          <input
-            type="text"
-            pInputText
-            id="fromDate"
-            [(ngModel)]="passenger.fromDate"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.fromDate
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.fromDate"
-          >
-            تاریخ شروع الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="toDate">تاریخ اتمام</label>
-          <input
-            type="text"
-            pInputText
-            id="toDate"
-            [(ngModel)]="passenger.toDate"
-            required
-            autofocus
-            [ngClass]="{
-              'ng-invalid ng-dirty': submitted && !passenger.toDate
-            }"
-          />
-          <small
-            class="ng-dirty ng-invalid"
-            *ngIf="submitted && !passenger.toDate"
-          >
-            تاریخ اتمام الزامی است
-          </small>
-        </div>
-        <div class="field">
-          <label for="status">وضعیت پرداخت</label>
-          <p-dropdown
-            [(ngModel)]="passenger.status"
-            inputId="status"
-            optionValue="label"
-            [options]="statuses"
-            placeholder="انتخاب"
-          >
-            <ng-template pTemplate="selectedItem">
-              <span *ngIf="passenger && passenger.status" class="text-2xl">
-                {{ passenger.status }}
-              </span>
-            </ng-template>
-            <ng-template let-option pTemplate="item">
-              <span [class]="'product-badge status-' + option.value">{{
-                option.label
-              }}</span>
-            </ng-template>
-          </p-dropdown>
-        </div>
-        <div class="field">
-          <label for="lastRegisterId">شماره آخرین ریجستر</label>
-          <input
-            type="text"
-            pInputText
-            id="lastRegisterId"
-            [(ngModel)]="passenger.lastRegisterId"
-            required
-            autofocus
-            disabled
-          />
-        </div>
+        <ng-container [formGroup]="passengerForm">
+          <div class="field">
+            <label for="firstName">نام مسافر</label>
+            <input
+              type="text"
+              pInputText
+              id="firstName"
+              formControlName="firstName"
+              name="firstName"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.firstName
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.firstName"
+            >
+              نام مسافر الزامی است
+            </small>
+          </div>
+          <div class="field">
+            <label for="lastName">نام خانوادگی مسافر</label>
+            <input
+              type="text"
+              pInputText
+              id="lastName"
+              formControlName="lastName"
+              name="lastName"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.lastName
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.lastName"
+            >
+              نام خانوادگی مسافر الزامی است
+            </small>
+          </div>
+          <div class="field">
+            <label for="nationalID">شماره شناسنامه</label>
+            <input
+              type="text"
+              pInputText
+              id="nationalID"
+              formControlName="nationalID"
+              name="nationalID"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.nationalID
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.nationalID"
+            >
+              شماره شناسنامه الزامی است
+            </small>
+          </div>
+          <div class="field">
+            <label for="birthDate">تاریخ تولد</label>
+            <input
+              type="text"
+              pInputText
+              id="birthDate"
+              formControlName="birthDate"
+              name="birthDate"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.birthDate
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.birthDate"
+            >
+              تاریخ تولد الزامی است
+            </small>
+          </div>
+          <div class="field">
+            <label for="phoneNumber">شماره همراه</label>
+            <input
+              type="text"
+              pInputText
+              id="phoneNumber"
+              formControlName="phoneNumber"
+              name="phoneNumber"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.phoneNumber
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.phoneNumber"
+            >
+              شماره همراه الزامی است
+            </small>
+          </div>
+          <div class="field">
+            <label for="status">وضعیت پرداخت</label>
+            <p-dropdown
+              formControlName="paymentStatus"
+              name="paymentStatus"
+              inputId="status"
+              optionValue="label"
+              [options]="statuses"
+              placeholder="انتخاب"
+            >
+              <ng-template pTemplate="selectedItem">
+                <span
+                  *ngIf="passengerForm.controls.paymentStatus"
+                  class="text-2xl"
+                >
+                  {{ passengerForm.controls.paymentStatus.value }}
+                </span>
+              </ng-template>
+              <ng-template let-option pTemplate="item">
+                <span [class]="'product-badge status-' + option.value">{{
+                  option.label
+                }}</span>
+              </ng-template>
+            </p-dropdown>
+          </div>
+          <div class="field">
+            <label for="lastRegisterNumber">شماره آخرین ریجستر</label>
+            <input
+              type="text"
+              pInputText
+              id="lastRegisterNumber"
+              formControlName="lastRegisterNumber"
+              name="lastRegisterNumber"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.lastRegisterNumber
+              }"
+            />
+          </div>
+        </ng-container>
       </ng-template>
 
       <ng-template pTemplate="footer">
@@ -298,7 +288,7 @@
           label="ذخیره"
           icon="pi pi-check"
           class="p-button-text"
-          (click)="savePassenger()"
+          (click)="saveForm()"
         ></button>
         <button
           pButton
@@ -310,6 +300,7 @@
         ></button>
       </ng-template>
     </p-dialog>
+    }
     <!-- Delete Passenger -->
     <p-dialog
       [(visible)]="deletePassengerDialog"
@@ -324,7 +315,9 @@
         ></i>
         <span class="text-2xl" *ngIf="passenger">
           آیا از حذف مسافر با نام
-          <b class="font-bold text-3xl">{{ passenger.passengerName }}</b>
+          <b class="font-bold text-3xl">{{
+            passenger.firstName + " " + passenger.lastName
+          }}</b>
           مطمئن هستید ؟
         </span>
       </div>

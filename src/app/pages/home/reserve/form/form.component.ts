@@ -104,13 +104,13 @@ export class ReserveFormComponent {
     }
 
     const reserveEntity: Omit<ReserveDataAccess, 'agency' | 'register' | 'passengers'> = {
-        roomNumber: this.roomsFormGroup.value.roomNumber ?? 0,
+        roomNumber: this.roomsFormGroup.value.roomNumber ? Number(this.roomsFormGroup.value.roomNumber): 0,
         startDate: this.roomsFormGroup.value.startDate ? new Date(this.roomsFormGroup.value.startDate) : new Date(),
         endDate: this.roomsFormGroup.value.endDate ? new Date(this.roomsFormGroup.value.endDate) : new Date(),
         reservedBy: this.roomsFormGroup.value.reservedBy ?? '',
         receivedBy: this.roomsFormGroup.value.receivedBy ?? '',
-        reserveCode: this.roomsFormGroup.value.reserveCode ?? 0,
-        roomDescription: '',
+        reserveCode: this.roomsFormGroup.value.reserveCode ? Number(this.roomsFormGroup.value.reserveCode) : 0,
+        roomDescription: 'description',
         hasAlternatePassengers: false
     }
     this._reserveService.create(reserveEntity).subscribe((res) => console.log(res))
