@@ -43,6 +43,7 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./pages/home/home.component').then((m) => m.HomeComponent),
             },
+            { path: 'room/:id', loadComponent: () => import('./pages/home/room/room.component').then((m) => m.RoomComponent) },
             {
                 path: 'reservation',
                 loadComponent: () =>
@@ -59,13 +60,13 @@ export const routes: Routes = [
                             import(
                                 './pages/home/reserve/reserve-list.component'
                             ).then((m) => m.ReserveCrudComponent),
-                        },
-                        {
-                            path: 'form',
-                            loadComponent: () =>
-                                import(
-                                    './pages/home/reserve/form/form.component'
-                                ).then((m) => m.ReserveFormComponent),
+                    },
+                    {
+                        path: 'form',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/reserve/form/form.component'
+                            ).then((m) => m.ReserveFormComponent),
                     }
                 ]
             },

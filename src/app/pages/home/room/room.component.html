@@ -1,0 +1,139 @@
+<p-toast></p-toast>
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="roomFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات اتاق</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="reservedFrom">تاریخ ورود</label>
+          <input
+            pInputText
+            name="reservedFrom"
+            formControlName="reservedFrom"
+            id="reservedFrom"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                roomFormGroup.controls.reservedFrom.invalid &&
+                roomFormGroup.controls.reservedFrom.touched
+            }"
+          />
+          @if( roomFormGroup.controls.reservedFrom.invalid &&
+          roomFormGroup.controls.reservedFrom.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="reservedUntil">تاریخ خروج</label>
+          <input
+            pInputText
+            name="reservedUntil"
+            formControlName="reservedUntil"
+            id="reservedUntil"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                roomFormGroup.controls.reservedUntil.invalid &&
+                roomFormGroup.controls.reservedUntil.touched
+            }"
+          />
+          @if( roomFormGroup.controls.reservedUntil.invalid &&
+          roomFormGroup.controls.reservedUntil.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="agencyName">نام آژانس</label>
+          <p-dropdown
+            [options]="agencyNames"
+            dataKey="name"
+            optionLabel="name"
+            formControlName="agencyName"
+            name="agencyName"
+          ></p-dropdown>
+          @if( roomFormGroup.controls.agencyName.invalid &&
+          roomFormGroup.controls.agencyName.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="roomNumber">شماره اتاق</label>
+          <input
+            pInputText
+            name="roomNumber"
+            formControlName="roomNumber"
+            id="roomNumber"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                roomFormGroup.controls.roomNumber.invalid &&
+                roomFormGroup.controls.roomNumber.touched
+            }"
+          />
+          @if( roomFormGroup.controls.roomNumber.invalid &&
+          roomFormGroup.controls.roomNumber.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="isRoomFull">وضعیت اتاق</label>
+          <input
+            pInputText
+            name="isRoomFull"
+            formControlName="isRoomFull"
+            id="isRoomFull"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                roomFormGroup.controls.isRoomFull.invalid &&
+                roomFormGroup.controls.isRoomFull.touched
+            }"
+          />
+          @if( roomFormGroup.controls.isRoomFull.invalid &&
+          roomFormGroup.controls.isRoomFull.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6 flex align-items-end">
+          <button
+            pButton
+            pRipple
+            label="ثبت اطلاعات"
+            style="direction: ltr"
+            class="p-button-success mr-2 font-semibold text-3xl"
+            (click)="saveInformation()"
+          >
+            <i class="pi pi-pw pi-plus mr-2"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="block md:hidden">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <div class="my-2">
+        <button
+          pButton
+          pRipple
+          label="ثبت اطلاعات"
+          style="direction: ltr"
+          class="p-button-success mr-2 font-semibold text-3xl"
+          (click)="saveInformation()"
+        >
+          <i class="pi pi-pw pi-plus mr-2"></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right"> </ng-template>
+  </p-toolbar>
+</div>

@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<div class=" hidden md:block">
+<div class="hidden md:block">
   <p-toolbar styleClass="mb-4">
     <ng-template pTemplate="left">
       <div class="my-2">
@@ -204,6 +204,27 @@
           />
           @if( roomsFormGroup.controls.reserveCode.invalid &&
           roomsFormGroup.controls.reserveCode.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+      </div>
+    </form>
+    
+    <form class="card p-fluid" [formGroup]="agencyFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات آژانس</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="agencyName">نام آژانس</label>
+          <p-dropdown
+            [options]="agencyNames"
+            dataKey="code"
+            optionLabel="name"
+            formControlName="agencyName"
+            name="agencyName"
+          ></p-dropdown>
+          @if( agencyFormGroup.controls.agencyName.invalid &&
+          agencyFormGroup.controls.agencyName.touched ){
 
           <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
           }
@@ -476,6 +497,7 @@
       </div>
     </form>
   </div>
+  
 </div>
 
 <div class="block md:hidden">

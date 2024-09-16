@@ -19,6 +19,7 @@ import { delay, of } from 'rxjs';
 import { RoomDataAccessService } from '@core/services';
 import { RoomDataAccess } from '@core/types';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ConfirmDialogModule,
     ConfirmPopupModule,
     ToastModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule,
+    RouterLink
+  
   ],
   providers: [ConfirmationService, MessageService,  RoomDataAccessService],
   templateUrl: './home.component.html',

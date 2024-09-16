@@ -116,7 +116,7 @@
   <div class="col-12 md:col-6 pb-0">
     <div class="grid h-full">
       @if(roomsData.length > 0){ @for (item of roomsData; track $index) {
-      <div class="col-12 lg:col-6 xl:col-4 pb-0 pl-2 pr-2">
+      <div class="col-12 lg:col-6 xl:col-4 pb-0 pl-2 pr-2 cursor-pointer" [routerLink]="'/dashboard/room/' + item.roomNumber ">
         <div class="card mb-0 h-full">
           <div class="flex justify-content-between mb-3">
             <span class="text-900 font-bold text-2xl flex align-items-center">

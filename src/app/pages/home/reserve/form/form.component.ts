@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import { ReserveDataAccessService } from '@core/services';
+import { AgencyDataAccessService, ReserveDataAccessService } from '@core/services';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -45,14 +45,16 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     MessageService,
-    ReserveDataAccessService
+    ReserveDataAccessService,
+    AgencyDataAccessService
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
 export class ReserveFormComponent {
   private _messageService = inject(MessageService);
-  private _reserveService = inject(ReserveDataAccessService)
+  private _reserveService = inject(ReserveDataAccessService);
+  private _agencyService = inject(AgencyDataAccessService)
 
   protected roomsFormGroup = new FormGroup({
     roomNumber: new FormControl<number>(0, [Validators.required]),
@@ -87,12 +89,31 @@ export class ReserveFormComponent {
     carsPlateNumber: new FormControl('', []),
     postalCode: new FormControl('', []),
     address: new FormControl('', []),
+  });
+  protected agencyFormGroup = new FormGroup({
+    agencyName: new FormControl<{ name: string, code: number }>({
+      name: 'نام آژانس',
+      code: 0
+    }, [Validators.required])
   })
 
-  protected readonly genderTypes = [
+  protected readonly genderTypes: Array<{name: string, code: GenderType}> = [
     { name: 'مرد', code: GenderType.Male },
     { name: 'زن', code: GenderType.Female }
   ];
+  protected readonly agencyNames: Array<{name: string, code: number}> = []
+
+  constructor(){
+    this._agencyService.findAll().subscribe(res => {
+      if(res.result){
+        res.result.forEach(item => {
+          this.agencyNames.push({name: item.agencyName, code: Number(item.agencyCode)})
+        })
+      }else {
+        this._messageService.add({ severity: 'error', summary: 'خطا در برقراری ارتباط', detail: 'برقراری ارتباط برای آژانس‌ها با خطا مواجه شد لطفاْ صفحه را رفرش کنید و مجدد تلاش نمایید', life: 3000 });
+      }
+    })
+  }
 
   saveInformation() {
     this.roomsFormGroup.markAllAsTouched();
@@ -104,14 +125,14 @@ export class ReserveFormComponent {
     }
 
     const reserveEntity: Omit<ReserveDataAccess, 'agency' | 'register' | 'passengers'> = {
-        roomNumber: this.roomsFormGroup.value.roomNumber ? Number(this.roomsFormGroup.value.roomNumber): 0,
-        startDate: this.roomsFormGroup.value.startDate ? new Date(this.roomsFormGroup.value.startDate) : new Date(),
-        endDate: this.roomsFormGroup.value.endDate ? new Date(this.roomsFormGroup.value.endDate) : new Date(),
-        reservedBy: this.roomsFormGroup.value.reservedBy ?? '',
-        receivedBy: this.roomsFormGroup.value.receivedBy ?? '',
-        reserveCode: this.roomsFormGroup.value.reserveCode ? Number(this.roomsFormGroup.value.reserveCode) : 0,
-        roomDescription: 'description',
-        hasAlternatePassengers: false
+      roomNumber: this.roomsFormGroup.value.roomNumber ? Number(this.roomsFormGroup.value.roomNumber) : 0,
+      startDate: this.roomsFormGroup.value.startDate ? new Date(this.roomsFormGroup.value.startDate) : new Date(),
+      endDate: this.roomsFormGroup.value.endDate ? new Date(this.roomsFormGroup.value.endDate) : new Date(),
+      reservedBy: this.roomsFormGroup.value.reservedBy ?? '',
+      receivedBy: this.roomsFormGroup.value.receivedBy ?? '',
+      reserveCode: this.roomsFormGroup.value.reserveCode ? Number(this.roomsFormGroup.value.reserveCode) : 0,
+      roomDescription: 'description',
+      hasAlternatePassengers: false
     }
     this._reserveService.create(reserveEntity).subscribe((res) => console.log(res))
   }
