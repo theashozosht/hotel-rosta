@@ -4,6 +4,7 @@ export interface ReserveDataAccess {
     reserveCode: number;
     roomNumber: number;
     roomDescription: string;
+    roomPrice: string;
     hasAlternatePassengers: boolean;
     startDate: Date;
     endDate: Date;
@@ -11,17 +12,19 @@ export interface ReserveDataAccess {
     receivedBy: string;
     agency: AgencyDataAccess;
     register: RegisterDataAccess;
-    passengers: PassengerDataAccess[];
+    passenger: PassengerDataAccess;
 }
 
 export interface ReserveDataAccessDTO {
-    reserveCode: number;
     roomNumber: number;
     roomDescription: string;
+    roomPrice: string;
     hasAlternatePassengers: boolean;
     startDate: Date;
     endDate: Date;
     reservedBy: string;
     receivedBy: string;
-    passengers: PassengerDataAccess;
+    registerId: number | string;
+    agencyCode: number;
+    passenger: PassengerDataAccess;
 }

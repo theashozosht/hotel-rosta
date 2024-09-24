@@ -4,6 +4,7 @@ export interface PassengerDataAccess {
     firstName: string;
     lastName: string;
     nationalID: string;
+    nationalityType: string;
     phoneNumber: string;
     lastEndDate?: Date
     lastRegisterNumber?: number;

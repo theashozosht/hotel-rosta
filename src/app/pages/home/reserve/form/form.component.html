@@ -24,20 +24,15 @@
     <form class="card p-fluid" [formGroup]="roomsFormGroup">
       <h5 class="text-3xl font-bold">اطلاعات اتاق</h5>
       <div class="p-formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div *ngIf="roomNumbers.length > 0" class="field col-12 md:col-6">
           <label class="text-2xl" htmlFor="roomNumber">شماره اتاق</label>
-          <input
-            pInputText
-            name="roomNumber"
+          <p-dropdown
+            [options]="roomNumbers"
+            dataKey="code"
+            optionLabel="name"
             formControlName="roomNumber"
-            id="roomNumber"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                roomsFormGroup.controls.roomNumber.invalid &&
-                roomsFormGroup.controls.roomNumber.touched
-            }"
-          />
+            name="roomNumber"
+          ></p-dropdown>
           @if( roomsFormGroup.controls.roomNumber.invalid &&
           roomsFormGroup.controls.roomNumber.touched ){
 
@@ -187,34 +182,13 @@
           <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
           }
         </div>
-
-        <div class="field col-12 md:col-6">
-          <label class="text-2xl" htmlFor="reserveCode">کد رزرو</label>
-          <input
-            pInputText
-            name="reserveCode"
-            formControlName="reserveCode"
-            id="reserveCode"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                roomsFormGroup.controls.reserveCode.invalid &&
-                roomsFormGroup.controls.reserveCode.touched
-            }"
-          />
-          @if( roomsFormGroup.controls.reserveCode.invalid &&
-          roomsFormGroup.controls.reserveCode.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
       </div>
     </form>
-    
+
     <form class="card p-fluid" [formGroup]="agencyFormGroup">
       <h5 class="text-3xl font-bold">اطلاعات آژانس</h5>
       <div class="p-formgrid grid">
-        <div class="field col-12 md:col-6">
+        <div div *ngIf="agencyNames.length > 0" class="field col-12 md:col-6">
           <label class="text-2xl" htmlFor="agencyName">نام آژانس</label>
           <p-dropdown
             [options]="agencyNames"
@@ -272,49 +246,6 @@
           />
           @if( passengerFormGroup.controls.lastName.invalid &&
           passengerFormGroup.controls.lastName.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
-
-        <div class="field col-12 md:col-6">
-          <label class="text-2xl" htmlFor="fathersName">نام پدر</label>
-          <input
-            pInputText
-            name="fathersName"
-            formControlName="fathersName"
-            id="fathersName"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                passengerFormGroup.controls.fathersName.invalid &&
-                passengerFormGroup.controls.fathersName.touched
-            }"
-          />
-          @if( passengerFormGroup.controls.fathersName.invalid &&
-          passengerFormGroup.controls.fathersName.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
-        <div class="field col-12 md:col-6">
-          <label class="text-2xl" htmlFor="nationalNumber"
-            >شماره شناسنامه</label
-          >
-          <input
-            pInputText
-            name="nationalNumber"
-            formControlName="nationalNumber"
-            id="nationalNumber"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                passengerFormGroup.controls.nationalNumber.invalid &&
-                passengerFormGroup.controls.nationalNumber.touched
-            }"
-          />
-          @if( passengerFormGroup.controls.nationalNumber.invalid &&
-          passengerFormGroup.controls.nationalNumber.touched ){
 
           <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
           }
@@ -431,73 +362,9 @@
             name="genderType"
           ></p-dropdown>
         </div>
-        <div class="field col-12 md:col-6">
-          <label class="text-2xl" htmlFor="carsPlateNumber"
-            >شماره پلاک ماشین</label
-          >
-          <input
-            pInputText
-            name="carsPlateNumber"
-            formControlName="carsPlateNumber"
-            id="carsPlateNumber"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                passengerFormGroup.controls.carsPlateNumber.invalid &&
-                passengerFormGroup.controls.carsPlateNumber.touched
-            }"
-          />
-          @if( passengerFormGroup.controls.carsPlateNumber.invalid &&
-          passengerFormGroup.controls.carsPlateNumber.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
-        <div class="field col-12 md:col-6">
-          <label class="text-2xl" htmlFor="postalCode">کد پستی</label>
-          <input
-            pInputText
-            name="postalCode"
-            formControlName="postalCode"
-            id="postalCode"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                passengerFormGroup.controls.postalCode.invalid &&
-                passengerFormGroup.controls.postalCode.touched
-            }"
-          />
-          @if( passengerFormGroup.controls.postalCode.invalid &&
-          passengerFormGroup.controls.postalCode.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
-
-        <div class="field col-12">
-          <label class="text-2xl" htmlFor="address">آدرس</label>
-          <input
-            pInputText
-            name="address"
-            formControlName="address"
-            id="address"
-            type="text"
-            [ngClass]="{
-              'ng-invalid ng-dirty':
-                passengerFormGroup.controls.address.invalid &&
-                passengerFormGroup.controls.address.touched
-            }"
-          />
-          @if( passengerFormGroup.controls.address.invalid &&
-          passengerFormGroup.controls.address.touched ){
-
-          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
-          }
-        </div>
       </div>
     </form>
   </div>
-  
 </div>
 
 <div class="block md:hidden">

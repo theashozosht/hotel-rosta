@@ -194,6 +194,28 @@
             </small>
           </div>
           <div class="field">
+            <label for="nationalityType">ملیت</label>
+            <input
+              type="text"
+              pInputText
+              id="nationalityType"
+              formControlName="nationalityType"
+              name="nationalityType"
+              required
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  submitted && !passengerForm.controls.nationalityType
+              }"
+            />
+            <small
+              class="ng-dirty ng-invalid"
+              *ngIf="submitted && !passengerForm.controls.nationalityType"
+            >
+              ملیت الزامی است
+            </small>
+          </div>
+          <div class="field">
             <label for="birthDate">تاریخ تولد</label>
             <input
               type="text"

@@ -10,14 +10,14 @@ import { CascadeSelectModule } from "primeng/cascadeselect";
 import { MultiSelectModule } from "primeng/multiselect";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputTextModule } from "primeng/inputtext";
-import { GenderType, ReserveDataAccess } from '@core/types';
+import { GenderType, ReserveDataAccess, ReserveDataAccessDTO } from '@core/types';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
-import { AgencyDataAccessService, ReserveDataAccessService } from '@core/services';
+import { AgencyDataAccessService, ReserveDataAccessService, RoomDataAccessService } from '@core/services';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -46,7 +46,8 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     MessageService,
     ReserveDataAccessService,
-    AgencyDataAccessService
+    AgencyDataAccessService,
+    RoomDataAccessService
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
@@ -54,24 +55,29 @@ import { HttpClientModule } from '@angular/common/http';
 export class ReserveFormComponent {
   private _messageService = inject(MessageService);
   private _reserveService = inject(ReserveDataAccessService);
-  private _agencyService = inject(AgencyDataAccessService)
+  private _agencyService = inject(AgencyDataAccessService);
+  private _roomService = inject(RoomDataAccessService);
 
   protected roomsFormGroup = new FormGroup({
-    roomNumber: new FormControl<number>(0, [Validators.required]),
+    roomNumber: new FormControl<{
+      name: number,
+      code: number
+    }>({
+      name: 101,
+      code: 101
+    }, [Validators.required]
+    ),
     roomType: new FormControl('', [Validators.required]),
-    registerId: new FormControl('', [Validators.required]),
+    registerId: new FormControl<number>(0, [Validators.required]),
     roomPrice: new FormControl('', [Validators.required]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
     reservedBy: new FormControl('', [Validators.required]),
     receivedBy: new FormControl('', [Validators.required]),
-    reserveCode: new FormControl<number>({ value: 0, disabled: true }, []),
   })
   protected passengerFormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    fathersName: new FormControl('', [Validators.required]),
-    nationalNumber: new FormControl('', [Validators.required]),
     nationalID: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
@@ -86,9 +92,6 @@ export class ReserveFormComponent {
         code: GenderType.Male
       }, [Validators.required]
     ),
-    carsPlateNumber: new FormControl('', []),
-    postalCode: new FormControl('', []),
-    address: new FormControl('', []),
   });
   protected agencyFormGroup = new FormGroup({
     agencyName: new FormControl<{ name: string, code: number }>({
@@ -97,20 +100,31 @@ export class ReserveFormComponent {
     }, [Validators.required])
   })
 
-  protected readonly genderTypes: Array<{name: string, code: GenderType}> = [
+  protected readonly genderTypes: Array<{ name: string, code: GenderType }> = [
     { name: 'مرد', code: GenderType.Male },
     { name: 'زن', code: GenderType.Female }
   ];
-  protected readonly agencyNames: Array<{name: string, code: number}> = []
+  protected readonly agencyNames: Array<{ name: string, code: number }> = []
+  protected readonly roomNumbers: Array<{ name: number, code: number }> = []
 
-  constructor(){
+  constructor() {
     this._agencyService.findAll().subscribe(res => {
-      if(res.result){
+      if (res.result) {
         res.result.forEach(item => {
-          this.agencyNames.push({name: item.agencyName, code: Number(item.agencyCode)})
+          this.agencyNames.push({ name: item.agencyName, code: Number(item.agencyCode) })
         })
-      }else {
+      } else {
         this._messageService.add({ severity: 'error', summary: 'خطا در برقراری ارتباط', detail: 'برقراری ارتباط برای آژانس‌ها با خطا مواجه شد لطفاْ صفحه را رفرش کنید و مجدد تلاش نمایید', life: 3000 });
+      }
+    })
+    this._roomService.findAll().subscribe(res => {
+      if (res.result) {
+        res.result.forEach(item => {
+          if (!item.isRoomFull)
+            this.roomNumbers.push({ name: item.roomNumber, code: Number(item.roomNumber) })
+        })
+      } else {
+        this._messageService.add({ severity: 'error', summary: 'خطا در برقراری ارتباط', detail: 'برقراری ارتباط برای اتاق‌ها با خطا مواجه شد لطفاْ صفحه را رفرش کنید و مجدد تلاش نمایید', life: 3000 });
       }
     })
   }
@@ -124,15 +138,25 @@ export class ReserveFormComponent {
       return;
     }
 
-    const reserveEntity: Omit<ReserveDataAccess, 'agency' | 'register' | 'passengers'> = {
-      roomNumber: this.roomsFormGroup.value.roomNumber ? Number(this.roomsFormGroup.value.roomNumber) : 0,
+    const reserveEntity: ReserveDataAccessDTO = {
+      roomNumber: this.roomsFormGroup.value.roomNumber?.code ? Number(this.roomsFormGroup.value.roomNumber?.code) : 101,
+      roomDescription: this.roomsFormGroup.value.roomType as string,
+      roomPrice: this.roomsFormGroup.value.roomPrice as string,
       startDate: this.roomsFormGroup.value.startDate ? new Date(this.roomsFormGroup.value.startDate) : new Date(),
       endDate: this.roomsFormGroup.value.endDate ? new Date(this.roomsFormGroup.value.endDate) : new Date(),
       reservedBy: this.roomsFormGroup.value.reservedBy ?? '',
       receivedBy: this.roomsFormGroup.value.receivedBy ?? '',
-      reserveCode: this.roomsFormGroup.value.reserveCode ? Number(this.roomsFormGroup.value.reserveCode) : 0,
-      roomDescription: 'description',
-      hasAlternatePassengers: false
+      hasAlternatePassengers: false,
+      agencyCode: this.agencyFormGroup.value.agencyName?.code ?? 0,
+      registerId: this.roomsFormGroup.value.registerId ? +this.roomsFormGroup.value.registerId : 0,
+      passenger: {
+        birthDate: new Date(this.passengerFormGroup.value.birthDate as string),
+        firstName: this.passengerFormGroup.value.firstName as string,
+        lastName: this.passengerFormGroup.value.lastName as string,
+        nationalID: this.passengerFormGroup.value.nationalID as string,
+        nationalityType: this.passengerFormGroup.value.nationalityType as string,
+        phoneNumber: this.passengerFormGroup.value.phoneNumber as string
+      },
     }
     this._reserveService.create(reserveEntity).subscribe((res) => console.log(res))
   }

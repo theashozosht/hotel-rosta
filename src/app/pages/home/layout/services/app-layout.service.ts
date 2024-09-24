@@ -30,8 +30,8 @@ export class LayoutService {
         ripple: false,
         inputStyle: 'outlined',
         menuMode: 'static',
-        colorScheme: 'dark',
-        theme: 'lara-dark-purple',
+        colorScheme: 'light',
+        theme: 'tailwind',
         scale: 14,
     };
 
