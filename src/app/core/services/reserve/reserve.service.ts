@@ -8,19 +8,19 @@ import { Observable } from 'rxjs';
 export class ReserveDataAccessService implements BaseDataAccess<ReserveDataAccess> {
     private httpClient = inject(HttpClient)
     private _apiBaseUrl = environment.apiBaseUrl + 'reserve'
-    create(createEntityDto: Omit<ReserveDataAccess,  'reserveCode' | 'agency' | 'register' >): Observable<BaseResponse<ReserveDataAccess>> {
+    create(createEntityDto: Omit<ReserveDataAccess, 'reserveCode' | 'agency' | 'register'>): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.post<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl, createEntityDto)
     }
     findAll(): Observable<BaseResponse<ReserveDataAccess[]>> {
         return this.httpClient.get<BaseResponse<ReserveDataAccess[]>>(this._apiBaseUrl)
     }
-    findById(id: string): Observable<BaseResponse<ReserveDataAccess>> {
+    findById(id: string | number): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.get<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl + '/' + id)
     }
-    findByIdAndUpdate(id: string, createEntity: ReserveDataAccess): Observable<BaseResponse<ReserveDataAccess>> {
+    findByIdAndUpdate(id: string | number, createEntity: ReserveDataAccess): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.patch<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl + '/' + id, createEntity)
     }
-    findByIdAndDelete(id: string): Observable<BaseResponse<ReserveDataAccess>> {
+    findByIdAndDelete(id: string | number): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.delete<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl + '/' + id)
     }
 }

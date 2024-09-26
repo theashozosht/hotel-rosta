@@ -88,14 +88,14 @@
                   pRipple
                   icon="pi pi-pencil"
                   class="p-button-rounded p-button-success mr-2"
-                  (click)="editReserve(reserve)"
+                  (click)="editReserve(reserve.reserveCode)"
                 ></button>
                 <button
                   pButton
                   pRipple
                   icon="pi pi-trash"
                   class="p-button-rounded p-button-warning"
-                  (click)="deleteReserve(reserve)"
+                  (click)="deleteReserve(reserve.reserveCode)"
                 ></button>
               </div>
             </td>

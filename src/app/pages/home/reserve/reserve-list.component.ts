@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +17,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { of } from 'rxjs';
 import { ReserveList } from './models/interfaces/reserve.interface';
 import { JalaliPipe } from '@core/pipes';
+import { ReserveDataAccessService } from '../../../core/services/reserve';
+import { ReserveDataAccess } from '../../../core/types/DTOs';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register-crud',
@@ -36,53 +39,24 @@ import { JalaliPipe } from '@core/pipes';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    JalaliPipe
+    JalaliPipe,
+    RouterModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, ReserveDataAccessService],
   templateUrl: './reserve-list.component.html',
   styleUrl: './reserve-list.component.scss'
 })
 export class ReserveCrudComponent {
-
-  reserves: ReserveList[] = [];
-
-  reserve: ReserveList = {} as ReserveList;
-
-  submitted: boolean = false;
-
+  private _reserveService = inject(ReserveDataAccessService);
+  private _router = inject(Router);
+  reserves: ReserveDataAccess[] = [];
   cols: any[] = [];
-
-  statuses: any[] = [];
-
   rowsPerPageOptions = [5, 10, 20];
 
   constructor(private messageService: MessageService) { }
 
   ngOnInit() {
-    of([
-      {
-        reserveCode: 1,
-        roomNumber: 101,
-        roomDescription: 'توضیحات',
-        hasAlternatePassengers: false,
-        passengers: { firstName: 'یاسین ', lastName: 'سطوتی' },
-        startDate: new Date(),
-        endDate: new Date(),
-        reservedBy: 'محمد محمدی',
-        receivedBy: 'حسین حسینی '
-      },
-      {
-        reserveCode: 2,
-        roomNumber: 102,
-        roomDescription: '  توضیحات اضافه',
-        hasAlternatePassengers: false,
-        passengers: { firstName: 'یاسین ', lastName: 'سطوتی' },
-        startDate: new Date(),
-        endDate: new Date(),
-        reservedBy: 'محمد محمدی',
-        receivedBy: 'حسین حسینی '
-      }
-    ]).subscribe(res => this.reserves = res)
+    this.getAllReserves();
 
     this.cols = [
       { field: 'reserveCode', header: 'کد رزرو' },
@@ -94,24 +68,34 @@ export class ReserveCrudComponent {
       { field: 'receivedBy', header: 'کاربر خروج' },
     ];
 
-    // this.statuses = [
-    //   { label: 'تسویه کامل شده', value: PassengerPaymentStatus.FullPaid },
-    //   { label: 'تسویه با آژانس', value: PassengerPaymentStatus.PaymentWithProvider },
-    // ];
   }
-  editReserve(...arg: any): any { }
-  deleteReserve(...arg: any): any { }
 
-  findIndexById(reserveCode: string): number {
-    let index = -1;
-    for (let i = 0; i < this.reserves.length; i++) {
-      if (this.reserves[i].reserveCode === +reserveCode) {
-        index = i;
-        break;
-      }
-    }
-    return index;
+  getAllReserves() {
+    this._reserveService.findAll().subscribe(res => {
+      if (res.result.length > 0)
+        this.reserves = res.result
+      else
+        this.messageService.add({ severity: 'error', summary: 'خطا', detail: 'سرویس با خطا مواجه شده لطفاْ بعداْ تلاش کنید', life: 3000 });
+    });
   }
+
+  editReserve(reserveCode: number): any {
+    this._router.navigate(['/dashboard/reserve/' + reserveCode]);
+  }
+
+  deleteReserve(reserveCode: number) {
+    this._reserveService.findByIdAndDelete(+reserveCode).subscribe(res => {
+      if (res.result) {
+        this.messageService.add({ severity: 'success', summary: 'حذف رزرو', detail: 'رزرو با موفقیت حذف گردید', life: 3000 });
+        this.getAllReserves();
+      } else
+        this.messageService.add({ severity: 'error', summary: 'حذف رزرو', detail: 'حذف رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+    }, err => {
+      this.messageService.add({ severity: 'error', summary: 'حذف رزرو', detail: 'حذف رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+
+    })
+  }
+
 
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');

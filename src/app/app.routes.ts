@@ -67,6 +67,13 @@ export const routes: Routes = [
                             import(
                                 './pages/home/reserve/form/form.component'
                             ).then((m) => m.ReserveFormComponent),
+                    },
+                    {
+                        path: 'form/:reserveCode',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/reserve/form/form.component'
+                            ).then((m) => m.ReserveFormComponent),
                     }
                 ]
             },

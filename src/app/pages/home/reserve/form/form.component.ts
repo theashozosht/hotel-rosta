@@ -19,7 +19,8 @@ import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { AgencyDataAccessService, ReserveDataAccessService, RoomDataAccessService } from '@core/services';
 import { HttpClientModule } from '@angular/common/http';
-import  moment from 'jalali-moment';
+import moment from 'jalali-moment';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 moment.locale('fa')
 
 @Component({
@@ -43,7 +44,8 @@ moment.locale('fa')
     InputTextModule,
     ToastModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   providers: [
     MessageService,
@@ -59,6 +61,8 @@ export class ReserveFormComponent {
   private _reserveService = inject(ReserveDataAccessService);
   private _agencyService = inject(AgencyDataAccessService);
   private _roomService = inject(RoomDataAccessService);
+  private _router = inject(Router);
+  private _activatedRoute = inject(ActivatedRoute);
 
   protected roomsFormGroup = new FormGroup({
     roomNumber: new FormControl<{
@@ -129,6 +133,50 @@ export class ReserveFormComponent {
         this._messageService.add({ severity: 'error', summary: 'خطا در برقراری ارتباط', detail: 'برقراری ارتباط برای اتاق‌ها با خطا مواجه شد لطفاْ صفحه را رفرش کنید و مجدد تلاش نمایید', life: 3000 });
       }
     })
+    const reserveCode = this._activatedRoute.snapshot.params['reserveCode']
+    if (reserveCode) {
+
+    }
+  }
+
+  getById(reserveCode: number) {
+    this._reserveService.findById(+reserveCode).subscribe(res => {
+      if (res.result) {
+        this.roomsFormGroup.setValue({
+          endDate: moment(res.result.endDate, 'jYYYY-MM-Dd').toString(),
+          roomNumber: { code: +res.result.roomNumber, name: +res.result.roomNumber },
+          roomType: res.result.roomDescription,
+          registerId: res.result.register.registerId,
+          roomPrice: res.result.roomPrice,
+          startDate: res.error.startDate,
+          reservedBy: res.result.reservedBy,
+          receivedBy: res.result.receivedBy
+        })
+        this.agencyFormGroup.setValue({
+          agencyName: {
+            code: +res.result.agency.agencyCode, name: res.result.agency.agencyName
+          }
+        })
+
+        this.passengerFormGroup.setValue({
+          birthDate: moment(res.result.passenger.birthDate, 'jYYYY-MM-Dd').toString(),
+          birthLocation: res.result.passenger.nationalityType, // ???????????????????????????????
+          firstName: res.result.passenger.firstName,
+          genderType: { code: 0, name: 'مرد' },
+          lastName: res.result.passenger.lastName,
+          nationalID: res.result.passenger.nationalID,
+          nationalityType: res.result.passenger.nationalityType,
+          phoneNumber: res.result.passenger.phoneNumber
+
+        })
+      } else {
+        this._messageService.add({ severity: 'error', summary: ' رزرو', detail: ' رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+
+      }
+    }, err => {
+      this._messageService.add({ severity: 'error', summary: ' رزرو', detail: ' رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+
+    })
   }
 
   saveInformation() {
@@ -160,6 +208,15 @@ export class ReserveFormComponent {
         phoneNumber: this.passengerFormGroup.value.phoneNumber as string
       },
     }
-    this._reserveService.create(reserveEntity).subscribe((res) => console.log(res))
+    this._reserveService.create(reserveEntity).subscribe((res) => {
+      if (res.result) {
+        this._messageService.add({ severity: 'success', summary: 'ثبت رزرو', detail: 'رزرو با شماره ' + res.result.reserveCode + 'با موفقیت انجام شد', life: 3000 })
+      } else {
+        this._messageService.add({ severity: 'error', summary: 'ثبت رزرو', detail: 'ثبت رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+
+      }
+    }, err => {
+      this._messageService.add({ severity: 'error', summary: 'ثبت رزرو', detail: 'ثبت رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+    })
   }
 }
