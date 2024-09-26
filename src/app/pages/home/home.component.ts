@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._roomsService.findAll().subscribe(res => {
+      console.log(res.result)
       this.roomsData = res.result
     })
   }

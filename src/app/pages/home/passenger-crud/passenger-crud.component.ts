@@ -18,6 +18,9 @@ import { PassengerDataAccessService } from '@core/services';
 import { HttpClientModule } from '@angular/common/http';
 import { BaseResponse, PassengerDataAccess, PaymentStatus } from '@core/types';
 import { JalaliPipe } from '@core/pipes';
+import moment  from 'jalali-moment';
+moment.locale('fa')
+
 @Component({
   selector: 'app-register-crud',
   standalone: true,
@@ -179,8 +182,8 @@ export class PassengerCrudComponent {
       nationalID: this.passengerForm.value.nationalID ?? '',
       nationalityType: this.passengerForm.value.nationalityType ?? '',
       phoneNumber: this.passengerForm.value.phoneNumber ?? '',
-      birthDate: this.passengerForm.value.birthDate ? new Date(this.passengerForm.value.birthDate) : new Date(),
-      lastEndDate: this.passengerForm.value.lastEndDate ?? new Date(),
+      birthDate: this.passengerForm.value.birthDate ? moment(this.passengerForm.value.birthDate, 'jYYYY-jMM-DD').toDate() : moment().toDate(),
+      lastEndDate:  moment(this.passengerForm.value.lastEndDate ?? '', 'jYYYY-jMM-DD').toDate() ?? moment().toDate(),
       lastRegisterNumber: this.passengerForm.value.lastRegisterNumber ? +this.passengerForm.value.lastRegisterNumber : 0,
       paymentStatus: this.statusReverseTranslator(this.passengerForm.value.paymentStatus + '') ?? PaymentStatus.None,
     }
@@ -206,8 +209,8 @@ export class PassengerCrudComponent {
       nationalID: this.passengerForm.value.nationalID ?? '',
       nationalityType: this.passengerForm.value.nationalityType ?? '',
       phoneNumber: this.passengerForm.value.phoneNumber ?? '',
-      birthDate: this.passengerForm.value.birthDate ? new Date(this.passengerForm.value.birthDate) : new Date(),
-      lastEndDate: this.passengerForm.value.lastEndDate ?? new Date(),
+      birthDate: this.passengerForm.value.birthDate ? moment(this.passengerForm.value.birthDate, 'jYYYY-jMM-DD').toDate() : moment().toDate(),
+      lastEndDate: moment(this.passengerForm.value.lastEndDate ?? '', 'jYYYY-jMM-DD').toDate() ?? moment().toDate(),
       lastRegisterNumber: this.passengerForm.value.lastRegisterNumber ? +this.passengerForm.value.lastRegisterNumber : 0,
       paymentStatus: this.statusReverseTranslator(this.passengerForm.value.paymentStatus + '') ?? PaymentStatus.None,
     }

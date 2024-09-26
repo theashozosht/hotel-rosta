@@ -10,7 +10,7 @@ import { CascadeSelectModule } from "primeng/cascadeselect";
 import { MultiSelectModule } from "primeng/multiselect";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputTextModule } from "primeng/inputtext";
-import { GenderType, ReserveDataAccess, ReserveDataAccessDTO } from '@core/types';
+import { GenderType, ReserveDataAccessDTO } from '@core/types';
 import { ToolbarModule } from 'primeng/toolbar';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -19,6 +19,8 @@ import { ToastModule } from 'primeng/toast';
 import { CommonModule } from '@angular/common';
 import { AgencyDataAccessService, ReserveDataAccessService, RoomDataAccessService } from '@core/services';
 import { HttpClientModule } from '@angular/common/http';
+import  moment from 'jalali-moment';
+moment.locale('fa')
 
 @Component({
   selector: 'app-reserve-form',
@@ -142,15 +144,15 @@ export class ReserveFormComponent {
       roomNumber: this.roomsFormGroup.value.roomNumber?.code ? Number(this.roomsFormGroup.value.roomNumber?.code) : 101,
       roomDescription: this.roomsFormGroup.value.roomType as string,
       roomPrice: this.roomsFormGroup.value.roomPrice as string,
-      startDate: this.roomsFormGroup.value.startDate ? new Date(this.roomsFormGroup.value.startDate) : new Date(),
-      endDate: this.roomsFormGroup.value.endDate ? new Date(this.roomsFormGroup.value.endDate) : new Date(),
+      startDate: this.roomsFormGroup.value.startDate ? moment(this.roomsFormGroup.value.startDate, 'jYYYY-jMM-DD').toDate() : moment().toDate(),
+      endDate: this.roomsFormGroup.value.endDate ? moment(this.roomsFormGroup.value.endDate, 'jYYYY-jMM-DD').toDate() : moment().toDate(),
       reservedBy: this.roomsFormGroup.value.reservedBy ?? '',
       receivedBy: this.roomsFormGroup.value.receivedBy ?? '',
       hasAlternatePassengers: false,
       agencyCode: this.agencyFormGroup.value.agencyName?.code ?? 0,
       registerId: this.roomsFormGroup.value.registerId ? +this.roomsFormGroup.value.registerId : 0,
       passenger: {
-        birthDate: new Date(this.passengerFormGroup.value.birthDate as string),
+        birthDate: moment(this.passengerFormGroup.value.birthDate as string, 'jYYYY-jMM-DD').toDate(),
         firstName: this.passengerFormGroup.value.firstName as string,
         lastName: this.passengerFormGroup.value.lastName as string,
         nationalID: this.passengerFormGroup.value.nationalID as string,

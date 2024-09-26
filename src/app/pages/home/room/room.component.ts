@@ -78,7 +78,6 @@ export class RoomComponent {
 
     this._roomsService.findById(roomId).subscribe(res => {
       if (res.result) {
-        console.log(moment(res.result.reservedFrom).locale('fa').format('YYYY-MM-DD'))
         this.roomFromApi = res.result
         const formControls = this.roomFormGroup.controls
         formControls.agencyName.setValue({ name: res.result.agencyName, code: 0 })
@@ -101,10 +100,8 @@ export class RoomComponent {
     }
     const roomEntity: RoomDataAccess = {
       agencyName: String(this.roomFormGroup.controls.agencyName.value?.name),
-      reservedFrom: moment.from(this.roomFormGroup.controls.reservedFrom.value as string, 'fa', 'YYYY-MM-DD')
-        .format('YYYY-MM-DD') as any,
-      reservedUntil: moment.from(this.roomFormGroup.controls.reservedUntil.value as string, 'fa', 'YYYY-MM-DD')
-        .format('YYYY-MM-DD') as any,
+      reservedFrom: moment(this.roomFormGroup.controls.reservedFrom.value as string, 'jYYYY-jMM-DD').toDate(),
+      reservedUntil: moment(this.roomFormGroup.controls.reservedUntil.value as string,  'jYYYY-jMM-DD').toDate(),
       isRoomFull: this.roomFromApi.isRoomFull,
       passengers: this.roomFromApi.passengers,
       roomNumber: this.roomFromApi.roomNumber,
