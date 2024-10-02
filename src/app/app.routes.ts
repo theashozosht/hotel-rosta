@@ -78,18 +78,58 @@ export const routes: Routes = [
                 ]
             },
             {
-                path: 'passenger-crud',
-                loadComponent: () =>
-                    import(
-                        './pages/home/passenger-crud/passenger-crud.component'
-                    ).then((m) => m.PassengerCrudComponent),
+                path: 'passenger',
+                children: [
+                    {
+                        path: 'list',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/passenger/passenger-list.component'
+                            ).then((m) => m.PassengerListComponent),
+                    },
+                    {
+                        path: 'form',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/passenger/passenger-form.component'
+                            ).then((m) => m.PassengerFormComponent),
+                    },
+                    {
+                        path: 'form/:nationalID',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/passenger/passenger-form.component'
+                            ).then((m) => m.PassengerFormComponent),
+                    },
+
+                ]
             },
             {
-                path: 'provider-crud',
-                loadComponent: () =>
-                    import(
-                        './pages/home/provider-crud/provider-crud.component'
-                    ).then((m) => m.ProviderCrudComponent),
+                path: 'agency',
+                children: [
+                    {
+                        path: 'list',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/agency/agency-list.component'
+                            ).then((m) => m.AgencyListComponent),
+                    },
+                    {
+                        path: 'form',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/agency/agency-form.component'
+                            ).then((m) => m.AgencyFormComponent),
+                    },
+                    {
+                        path: 'form/:nationalID',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/agency/agency-form.component'
+                            ).then((m) => m.AgencyFormComponent),
+                    },
+
+                ]
             },
         ],
     },

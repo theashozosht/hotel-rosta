@@ -22,7 +22,7 @@ import moment  from 'jalali-moment';
 moment.locale('fa')
 
 @Component({
-  selector: 'app-register-crud',
+  selector: 'app-passenger-list',
   standalone: true,
   imports: [
     CommonModule,
@@ -44,10 +44,10 @@ moment.locale('fa')
     JalaliPipe,
     HttpClientModule],
   providers: [MessageService, PassengerDataAccessService],
-  templateUrl: './passenger-crud.component.html',
-  styleUrl: './passenger-crud.component.scss'
+  templateUrl: './passenger-list.component.html',
+  styleUrl: './passenger-list.component.scss'
 })
-export class PassengerCrudComponent {
+export class PassengerListComponent {
   passengerDialogCreate: boolean = false;
   passengerDialogEdit: boolean = false;
   deletePassengerDialog: boolean = false;

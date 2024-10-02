@@ -1,0 +1,168 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <!-- Create Passenger -->
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="اضافه کردن"
+              style="direction: ltr"
+              class="p-button-success mr-2 font-semibold text-3xl"
+              [routerLink]="'form'"
+            >
+              <i class="pi pi-pw pi-plus mr-2"></i>
+            </button>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right"> </ng-template>
+      </p-toolbar>
+      <!-- Read Passenger -->
+      <p-table
+        #dt
+        [value]="agency"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [globalFilterFields]="[
+          'providerName',
+          'manager',
+          'coordinator',
+          'telephone',
+          'phoneNumber'
+        ]"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="id"
+      >
+        <ng-template pTemplate="caption">
+          <div
+            class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+          >
+            <h5 class="m-0 text-center md:text-right font-semibold text-3xl">
+              مدیریت آژانس‌ها
+            </h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            @for (item of columns; track $index) {
+            <th class="text-right text-2xl text-nowrap">{{ item.header }}</th>
+            }
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-provider>
+          <tr>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">agencyName</span>
+              {{ provider.agencyName }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">agencyCode</span>
+              {{ provider.agencyCode }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">manager</span>
+              {{ provider.manager }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">coordinator</span>
+              {{ provider.coordinator }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">telephone</span>
+              {{ provider.telephone }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">phoneNumber</span>
+              {{ provider.phoneNumber }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">creditLimit</span>
+              {{ provider.creditLimit | number }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">contractType</span>
+              {{ contractTranslator(provider.contractType) }}
+            </td>
+            <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">color</span>
+              <div
+                class="w-full h-5rem"
+                style="border-radius: 0.5rem"
+                [style.background]="provider.color"
+              ></div>
+            </td>
+            <!-- <td class="text-right text-2xl  text-nowrap">
+              <span class="p-column-title">address</span>
+              {{ provider.address }}
+            </td> -->
+            <td class="text-right text-2xl  text-nowrap">
+              <div class="flex justify-content-evenly">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  [routerLink]="'form/' + provider.agencyCode"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deleteProvider(provider)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <!-- Delete Passenger -->
+    <p-dialog
+      [(visible)]="deleteProviderDialog"
+      header="تاییدیه"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-start">
+        <i
+          class="pi pi-exclamation-triangle ml-3 align-self-start"
+          style="font-size: 2rem"
+        ></i>
+        <span class="text-2xl" *ngIf="cacheAgency">
+          آیا از حذف آژانس با نام
+          <b class="font-bold text-3xl">{{ cacheAgency.agencyName }}</b>
+          مطمئن هستید ؟
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text text-2xl"
+          label="بلی"
+          (click)="confirmDelete()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text text-2xl"
+          label="خیر"
+          (click)="deleteProviderDialog = false"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>

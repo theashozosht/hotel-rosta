@@ -17,7 +17,7 @@ export class ReserveDataAccessService implements BaseDataAccess<ReserveDataAcces
     findById(id: string | number): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.get<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl + '/' + id)
     }
-    findByIdAndUpdate(id: string | number, createEntity: ReserveDataAccess): Observable<BaseResponse<ReserveDataAccess>> {
+    findByIdAndUpdate(id: string | number, createEntity: Omit<ReserveDataAccess, 'reserveCode' | 'agency' | 'register'>): Observable<BaseResponse<ReserveDataAccess>> {
         return this.httpClient.patch<BaseResponse<ReserveDataAccess>>(this._apiBaseUrl + '/' + id, createEntity)
     }
     findByIdAndDelete(id: string | number): Observable<BaseResponse<ReserveDataAccess>> {

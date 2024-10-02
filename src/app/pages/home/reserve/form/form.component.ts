@@ -112,6 +112,7 @@ export class ReserveFormComponent {
   ];
   protected readonly agencyNames: Array<{ name: string, code: number }> = []
   protected readonly roomNumbers: Array<{ name: number, code: number }> = []
+  reserveCodeFromRoute!: string;
 
   constructor() {
     this._agencyService.findAll().subscribe(res => {
@@ -133,9 +134,9 @@ export class ReserveFormComponent {
         this._messageService.add({ severity: 'error', summary: 'خطا در برقراری ارتباط', detail: 'برقراری ارتباط برای اتاق‌ها با خطا مواجه شد لطفاْ صفحه را رفرش کنید و مجدد تلاش نمایید', life: 3000 });
       }
     })
-    const reserveCode = this._activatedRoute.snapshot.params['reserveCode']
-    if (reserveCode) {
-
+    this.reserveCodeFromRoute = this._activatedRoute.snapshot.params['reserveCode']
+    if (this.reserveCodeFromRoute) {
+      this.getById(+this.reserveCodeFromRoute)
     }
   }
 
@@ -208,7 +209,26 @@ export class ReserveFormComponent {
         phoneNumber: this.passengerFormGroup.value.phoneNumber as string
       },
     }
+
+    if (this.reserveCodeFromRoute) this.updateEntity(this.reserveCodeFromRoute, reserveEntity)
+    else this.createReserve(reserveEntity)
+  }
+
+  createReserve(reserveEntity: ReserveDataAccessDTO) {
     this._reserveService.create(reserveEntity).subscribe((res) => {
+      if (res.result) {
+        this._messageService.add({ severity: 'success', summary: 'ثبت رزرو', detail: 'رزرو با شماره ' + res.result.reserveCode + 'با موفقیت انجام شد', life: 3000 })
+      } else {
+        this._messageService.add({ severity: 'error', summary: 'ثبت رزرو', detail: 'ثبت رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+
+      }
+    }, err => {
+      this._messageService.add({ severity: 'error', summary: 'ثبت رزرو', detail: 'ثبت رزرو با خطا مواجه شده لطفاْ دوباره تلاش کنید', life: 3000 });
+    })
+  }
+
+  updateEntity(reserveCode: string, reserveEntity: ReserveDataAccessDTO) {
+    this._reserveService.findByIdAndUpdate(reserveCode, reserveEntity).subscribe((res) => {
       if (res.result) {
         this._messageService.add({ severity: 'success', summary: 'ثبت رزرو', detail: 'رزرو با شماره ' + res.result.reserveCode + 'با موفقیت انجام شد', life: 3000 })
       } else {

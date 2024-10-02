@@ -1,0 +1,252 @@
+<p-toast></p-toast>
+<div class="hidden md:block">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <div class="my-2">
+        <button
+          pButton
+          pRipple
+          label="ثبت اطلاعات"
+          style="direction: ltr"
+          class="p-button-success mr-2 font-semibold text-3xl"
+          (click)="saveInformation()"
+        >
+          <i class="pi pi-pw pi-plus mr-2"></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right"> </ng-template>
+  </p-toolbar>
+</div>
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="agencyFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات آژانس</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="agencyName">نام آژانس</label>
+          <input
+            pInputText
+            name="agencyName"
+            formControlName="agencyName"
+            id="agencyName"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.agencyName.invalid &&
+                agencyFormGroup.controls.agencyName.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.agencyName.invalid &&
+          agencyFormGroup.controls.agencyName.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="agencyCode">کد آژانس</label>
+          <input
+            pInputText
+            name="agencyCode"
+            formControlName="agencyCode"
+            id="agencyCode"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.agencyCode.invalid &&
+                agencyFormGroup.controls.agencyCode.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.agencyCode.invalid &&
+          agencyFormGroup.controls.agencyCode.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="agencyStatus">وضعیت آژانس</label>
+          <p-dropdown
+            [options]="agencyStatus"
+            dataKey="code"
+            optionLabel="name"
+            formControlName="agencyStatus"
+            name="agencyStatus"
+          ></p-dropdown>
+          @if( agencyFormGroup.controls.agencyStatus.invalid &&
+          agencyFormGroup.controls.agencyStatus.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="contractType">نوع قرارداد</label>
+          <p-dropdown
+            [options]="contractTypes"
+            dataKey="code"
+            optionLabel="name"
+            formControlName="contractType"
+            name="contractType"
+          ></p-dropdown>
+          @if( agencyFormGroup.controls.contractType.invalid &&
+          agencyFormGroup.controls.contractType.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="creditLeft">باقی‌مانده مبلغ</label>
+          <input
+            pInputText
+            name="creditLeft"
+            formControlName="creditLeft"
+            id="creditLeft"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.creditLeft.invalid &&
+                agencyFormGroup.controls.creditLeft.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.creditLeft.invalid &&
+          agencyFormGroup.controls.creditLeft.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="manager">مدیریت</label>
+          <input
+            pInputText
+            name="manager"
+            formControlName="manager"
+            id="manager"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.manager.invalid &&
+                agencyFormGroup.controls.manager.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.manager.invalid &&
+          agencyFormGroup.controls.manager.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="coordinator">مسئول هماهنگی</label>
+          <input
+            pInputText
+            name="coordinator"
+            formControlName="coordinator"
+            id="coordinator"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.coordinator.invalid &&
+                agencyFormGroup.controls.coordinator.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.coordinator.invalid &&
+          agencyFormGroup.controls.coordinator.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="address">آدرس</label>
+          <input
+            pInputText
+            name="address"
+            formControlName="address"
+            id="address"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.address.invalid &&
+                agencyFormGroup.controls.address.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.address.invalid &&
+          agencyFormGroup.controls.address.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="phoneNumber">شماره همراه</label>
+          <input
+            pInputText
+            name="phoneNumber"
+            formControlName="phoneNumber"
+            id="phoneNumber"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.phoneNumber.invalid &&
+                agencyFormGroup.controls.phoneNumber.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.phoneNumber.invalid &&
+          agencyFormGroup.controls.phoneNumber.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="telephone">تلفن ثابت</label>
+          <input
+            pInputText
+            name="telephone"
+            formControlName="telephone"
+            id="telephone"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                agencyFormGroup.controls.telephone.invalid &&
+                agencyFormGroup.controls.telephone.touched
+            }"
+          />
+          @if( agencyFormGroup.controls.telephone.invalid &&
+          agencyFormGroup.controls.telephone.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="color">رنگ</label>
+          <p-colorPicker formControlName="color"></p-colorPicker>
+          @if( agencyFormGroup.controls.color.invalid &&
+          agencyFormGroup.controls.color.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="block md:hidden">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <div class="my-2">
+        <button
+          pButton
+          pRipple
+          label="ثبت اطلاعات"
+          style="direction: ltr"
+          class="p-button-success mr-2 font-semibold text-3xl"
+          (click)="saveInformation()"
+        >
+          <i class="pi pi-pw pi-plus mr-2"></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right"> </ng-template>
+  </p-toolbar>
+</div>
