@@ -80,17 +80,17 @@ export class AgencyFormComponent {
     { name: 'غیرفعال', code: AgencyStatus.NotAvailable },
     { name: 'بسته', code: AgencyStatus.Closed },
   ];
-  private nationalIdFromRoute!: string;
+  private agencyCodeFromRoute!: string;
 
   constructor() {
-    this.nationalIdFromRoute = this._activatedRoute.snapshot.params['nationalID']
-    if (this.nationalIdFromRoute) {
-      this.getById(+this.nationalIdFromRoute)
+    this.agencyCodeFromRoute = this._activatedRoute.snapshot.params['agencyCode']
+    if (this.agencyCodeFromRoute) {
+      this.getById(+this.agencyCodeFromRoute)
     }
   }
 
-  getById(nationalID: number) {
-    this._agencyService.findById(nationalID.toString()).subscribe(res => {
+  getById(agencyCode: number) {
+    this._agencyService.findById(agencyCode.toString()).subscribe(res => {
       if (res.result) {
         this.agencyFormGroup.setValue({
           agencyName: res.result.agencyName,
@@ -137,7 +137,7 @@ export class AgencyFormComponent {
       phoneNumber: this.agencyFormGroup.value.phoneNumber ?? '',
       color: this.agencyFormGroup.value.color ?? '',
     }
-    if (this.nationalIdFromRoute) this.updateAgency(this.nationalIdFromRoute, agencyEntity)
+    if (this.agencyCodeFromRoute) this.updateAgency(this.agencyCodeFromRoute, agencyEntity)
     else this.createAgency(agencyEntity)
   }
 
@@ -154,8 +154,8 @@ export class AgencyFormComponent {
     })
   }
 
-  updateAgency(nationalID: string, agencyEntity: AgencyDataAccessDTO) {
-    this._agencyService.findByIdAndUpdate(nationalID, agencyEntity).subscribe((res) => {
+  updateAgency(agencyCode: string, agencyEntity: AgencyDataAccessDTO) {
+    this._agencyService.findByIdAndUpdate(agencyCode, agencyEntity).subscribe((res) => {
       if (res.result) {
         this._messageService.add({ severity: 'success', summary: 'ثبت آژانس', detail: 'آژانس با شماره ' + res.result.agencyCode + 'با موفقیت انجام شد', life: 3000 })
       } else {

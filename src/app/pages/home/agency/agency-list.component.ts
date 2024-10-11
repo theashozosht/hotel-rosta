@@ -15,7 +15,7 @@ import { AgencyDataAccess, AgencyStatus, BaseResponse, ContractTypes } from '@co
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-provider-list',
+  selector: 'app-agency-list',
   standalone: true,
   imports: [
     CommonModule,

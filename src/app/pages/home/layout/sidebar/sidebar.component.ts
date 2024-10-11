@@ -30,18 +30,37 @@ export class SidebarComponent {
         items: [
           { label: 'داشبورد', icon: 'pi pi-fw pi-home text-xl', routerLink: ['/dashboard/home'] },
           { label: 'لیست اتاق‌ها', icon: 'pi pi-fw pi-table text-xl', routerLink: ['/dashboard/reservation'] },
-          { label: 'لیست رزرو', icon: 'pi pi-fw pi-building text-xl', routerLink: ['/dashboard/reserve/list'] },
-          { label: 'ثبت رزرو', icon: 'pi pi-fw pi-calendar-plus text-xl', routerLink: ['/dashboard/reserve/form'] },
-          { label: 'مسافران', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger-crud'] },
-          { label: 'آژانس‌ها', icon: 'pi pi-fw pi-link text-xl', routerLink: ['/dashboard/provider-crud'] },
-          { label: 'خروج از حساب', icon: 'pi pi-fw pi-sign-out text-xl', hasCallBack: true, callBack: this.logOut.bind(this)  },
+          {
+            label: 'رزرو', items: [
+              { label: 'لیست رزرو', icon: 'pi pi-fw pi-building text-xl', routerLink: ['/dashboard/reserve/list'] },
+              { label: 'ثبت رزرو', icon: 'pi pi-fw pi-calendar-plus text-xl', routerLink: ['/dashboard/reserve/form'] },
+            ]
+          },
+          {
+            label: 'مسافران', items: [
+              { label: 'لیست مسافران', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger/list'] },
+              { label: 'ثبت مسافر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger/form'] },
+            ]
+          },
+          {
+            label: 'آژانس', items: [
+              { label: 'لیست آژانس', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/list'] },
+              { label: 'ثبت آژانس', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/form'] },
+            ]
+          },
+          {
+            label: 'ریجستر', items: [
+              { label: 'لیست ریجستر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/register/list'] },
+              { label: 'ثبت ریجستر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/form'] },
+            ]
+          },
+          { label: 'خروج از حساب', icon: 'pi pi-fw pi-sign-out text-xl', hasCallBack: true, callBack: this.logOut.bind(this) },
         ]
       },
     ];
   }
 
   logOut(): void {
-    console.log('here')
     localStorage.removeItem(StaticName.localStorage.session);
     this._router.navigate(['/auth/login'])
   }

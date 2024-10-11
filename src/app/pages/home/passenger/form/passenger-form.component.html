@@ -1,0 +1,220 @@
+<p-toast></p-toast>
+<div class="hidden md:block">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <div class="my-2">
+        <button
+          pButton
+          pRipple
+          label="ثبت اطلاعات"
+          style="direction: ltr"
+          class="p-button-success mr-2 font-semibold text-3xl"
+          (click)="saveInformation()"
+        >
+          <i class="pi pi-pw pi-plus mr-2"></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right"> </ng-template>
+  </p-toolbar>
+</div>
+<div class="grid">
+  <div class="col-12 md:col-6">
+    <form class="card p-fluid" [formGroup]="passengerFormGroup">
+      <h5 class="text-3xl font-bold">اطلاعات مسافر</h5>
+      <div class="p-formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="firstName">نام</label>
+          <input
+            pInputText
+            name="firstName"
+            formControlName="firstName"
+            id="firstName"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.firstName.invalid &&
+                passengerFormGroup.controls.firstName.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.firstName.invalid &&
+          passengerFormGroup.controls.firstName.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="lastName">نام خانوادکی</label>
+          <input
+            pInputText
+            name="lastName"
+            formControlName="lastName"
+            id="lastName"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.lastName.invalid &&
+                passengerFormGroup.controls.lastName.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.lastName.invalid &&
+          passengerFormGroup.controls.lastName.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="nationalID">کد ملی</label>
+          <input
+            pInputText
+            name="nationalID"
+            formControlName="nationalID"
+            id="nationalID"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.nationalID.invalid &&
+                passengerFormGroup.controls.nationalID.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.nationalID.invalid &&
+          passengerFormGroup.controls.nationalID.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="nationalityType">ملیت</label>
+          <input
+            pInputText
+            name="nationalityType"
+            formControlName="nationalityType"
+            id="nationalityType"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.nationalityType.invalid &&
+                passengerFormGroup.controls.nationalityType.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.nationalityType.invalid &&
+          passengerFormGroup.controls.nationalityType.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="phoneNumber">شماره همراه</label>
+          <input
+            pInputText
+            name="phoneNumber"
+            formControlName="phoneNumber"
+            id="phoneNumber"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.phoneNumber.invalid &&
+                passengerFormGroup.controls.phoneNumber.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.phoneNumber.invalid &&
+          passengerFormGroup.controls.phoneNumber.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="birthDate">تاریخ تولد</label>
+          <input
+            pInputText
+            name="birthDate"
+            formControlName="birthDate"
+            id="birthDate"
+            type="text"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.birthDate.invalid &&
+                passengerFormGroup.controls.birthDate.touched
+            }"
+          />
+          @if( passengerFormGroup.controls.birthDate.invalid &&
+          passengerFormGroup.controls.birthDate.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="paymentStatus">وضعیت پرداخت</label>
+          <p-dropdown
+            [options]="paymentStatus"
+            dataKey="code"
+            optionLabel="name"
+            formControlName="paymentStatus"
+            name="paymentStatus"
+          ></p-dropdown>
+          @if( passengerFormGroup.controls.paymentStatus.invalid &&
+          passengerFormGroup.controls.paymentStatus.touched ){
+
+          <span class="ng-dirty">این فیلد الزامی می‌باشد</span>
+          }
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="lastEndDate">آخرین روز حضور</label>
+          <input
+            pInputText
+            name="lastEndDate"
+            formControlName="lastEndDate"
+            id="lastEndDate"
+            type="text"
+            [attr.disabled]="true"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.lastEndDate.invalid &&
+                passengerFormGroup.controls.lastEndDate.touched
+            }"
+          />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label class="text-2xl" htmlFor="lastRegisterNumber">شماره آخرین ریجستر</label>
+          <input
+            pInputText
+            name="lastRegisterNumber"
+            formControlName="lastRegisterNumber"
+            id="lastRegisterNumber"
+            type="text"
+            [attr.disabled]="true"
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                passengerFormGroup.controls.lastRegisterNumber.invalid &&
+                passengerFormGroup.controls.lastRegisterNumber.touched
+            }"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="block md:hidden">
+  <p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+      <div class="my-2">
+        <button
+          pButton
+          pRipple
+          label="ثبت اطلاعات"
+          style="direction: ltr"
+          class="p-button-success mr-2 font-semibold text-3xl"
+          (click)="saveInformation()"
+        >
+          <i class="pi pi-pw pi-plus mr-2"></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="right"> </ng-template>
+  </p-toolbar>
+</div>

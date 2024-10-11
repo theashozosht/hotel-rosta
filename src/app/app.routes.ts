@@ -91,14 +91,14 @@ export const routes: Routes = [
                         path: 'form',
                         loadComponent: () =>
                             import(
-                                './pages/home/passenger/passenger-form.component'
+                                './pages/home/passenger/form/passenger-form.component'
                             ).then((m) => m.PassengerFormComponent),
                     },
                     {
                         path: 'form/:nationalID',
                         loadComponent: () =>
                             import(
-                                './pages/home/passenger/passenger-form.component'
+                                './pages/home/passenger/form/passenger-form.component'
                             ).then((m) => m.PassengerFormComponent),
                     },
 
@@ -118,14 +118,41 @@ export const routes: Routes = [
                         path: 'form',
                         loadComponent: () =>
                             import(
-                                './pages/home/agency/agency-form.component'
+                                './pages/home/agency/form/agency-form.component'
                             ).then((m) => m.AgencyFormComponent),
                     },
                     {
-                        path: 'form/:nationalID',
+                        path: 'form/:agencyCode',
                         loadComponent: () =>
                             import(
-                                './pages/home/agency/agency-form.component'
+                                './pages/home/agency/form/agency-form.component'
+                            ).then((m) => m.AgencyFormComponent),
+                    },
+
+                ]
+            },
+            {
+                path: 'register',
+                children: [
+                    {
+                        path: 'list',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/register/register-list.component'
+                            ).then((m) => m.RegisterListComponent),
+                    },
+                    {
+                        path: 'form',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/agency/form/agency-form.component'
+                            ).then((m) => m.AgencyFormComponent),
+                    },
+                    {
+                        path: 'form/:agencyCode',
+                        loadComponent: () =>
+                            import(
+                                './pages/home/agency/form/agency-form.component'
                             ).then((m) => m.AgencyFormComponent),
                     },
 

@@ -1,16 +1,15 @@
-import { ContractTypes, PaymentMethods, AgencyDataAccess, PassengerDataAccess } from "@core/types";
+import { ContractTypes, PaymentMethods,  PassengerDataAccessDTO } from "@core/types";
 
 export interface RegisterDataAccess {
-    registerId: number
-    passengerName: string
-    startDate: string
-    endDate: string
+    registerId: number;
+    startDate: string;
+    endDate: string;
     paymentMethod: PaymentMethods
     contractType: ContractTypes
-    price: number
-    paidPrice: number
-    reservedAt: Date
-    reservedBy: string
-    passenger: PassengerDataAccess
-    agency: AgencyDataAccess
+    price: number;
+    paidPrice: number;
+    phoneNumber?: number;
+    telephoneNumber?: number;
+    reservedBy: string;
+    passenger?: PassengerDataAccessDTO; // Single passenger object
 }

@@ -160,7 +160,7 @@ export class ReserveFormComponent {
         })
 
         this.passengerFormGroup.setValue({
-          birthDate: moment(res.result.passenger.birthDate, 'jYYYY-MM-Dd').toString(),
+          birthDate: moment(res.result.passenger.birthDate).locale('fa').format('YYYY-MM-DD'),
           birthLocation: res.result.passenger.nationalityType, // ???????????????????????????????
           firstName: res.result.passenger.firstName,
           genderType: { code: 0, name: 'مرد' },

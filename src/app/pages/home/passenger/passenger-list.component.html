@@ -1,0 +1,140 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+      <!-- Create Passenger -->
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button
+              pButton
+              pRipple
+              label="اضافه کردن"
+              style="direction: ltr"
+              class="p-button-success mr-2 font-semibold text-3xl"
+              [routerLink]="'form'"
+            >
+              <i class="pi pi-pw pi-plus mr-2"></i>
+            </button>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="right"> </ng-template>
+      </p-toolbar>
+      <!-- Read Passenger -->
+      <p-table
+        #dt
+        [value]="passengers"
+        [columns]="cols"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 20, 30]"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        selectionMode="multiple"
+        [rowHover]="true"
+        dataKey="id"
+      >
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            @for (item of columns; track $index) {
+            <th class="text-right text-2xl text-nowrap">{{ item.header }}</th>
+            }
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-passenger>
+          <tr>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">firstName</span>
+              {{ passenger.firstName + " " + passenger.lastName }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">nationalID</span>
+              {{ passenger.nationalID }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">PhoneNumber</span>
+              {{ passenger.phoneNumber }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">birthDate</span>
+              {{ passenger.birthDate | jdate }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">lastEndDate</span>
+              {{ passenger.lastEndDate | jdate }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">lastRegisterNumber</span>
+              {{ passenger.lastRegisterNumber }}
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <span class="p-column-title">Status</span>
+              <span class="text-2xl">
+                {{ statusTranslator(passenger.paymentStatus) }}
+              </span>
+            </td>
+            <td class="text-right text-2xl text-nowrap">
+              <div class="flex justify-content-evenly">
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success mr-2"
+                  [routerLink]="passenger.nationalID"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-warning"
+                  (click)="deletePassenger(passenger)"
+                ></button>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <!-- Delete Passenger -->
+    <p-dialog
+      [(visible)]="deletePassengerDialog"
+      header="تاییدیه"
+      [modal]="true"
+      [style]="{ width: '450px' }"
+    >
+      <div class="flex align-items-center justify-content-start">
+        <i
+          class="pi pi-exclamation-triangle ml-3 align-self-start"
+          style="font-size: 2rem"
+        ></i>
+        <span class="text-2xl" *ngIf="passenger">
+          آیا از حذف مسافر با نام
+          <b class="font-bold text-3xl">{{
+            passenger.firstName + " " + passenger.lastName
+          }}</b>
+          مطمئن هستید ؟
+        </span>
+      </div>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-text text-2xl"
+          label="بلی"
+          (click)="confirmDelete()"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-times"
+          class="p-button-text text-2xl"
+          label="خیر"
+          (click)="deletePassengerDialog = false"
+        ></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
