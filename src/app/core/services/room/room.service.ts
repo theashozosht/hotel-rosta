@@ -13,16 +13,16 @@ export class RoomDataAccessService implements BaseDataAccess<RoomDataAccess> {
         throw new Error('')
     }
     findAll(): Observable<BaseResponse<RoomDataAccess[]>> {
-        return this.httpClient.get<BaseResponse<RoomDataAccess[]>>(this._apiBaseUrl)
+        return this.httpClient.get<BaseResponse<RoomDataAccess[]>>(this._apiBaseUrl+ '/all')
     }
     findById(id: string): Observable<BaseResponse<RoomDataAccess>> {
         return this.httpClient.get<BaseResponse<RoomDataAccess>>(this._apiBaseUrl + '/' + id)
     }
     findByIdAndUpdate(id: string, createEntity: RoomDataAccess): Observable<BaseResponse<RoomDataAccess>> {
-        return this.httpClient.patch<BaseResponse<RoomDataAccess>>(this._apiBaseUrl + '/' + id, createEntity)
+        return this.httpClient.patch<BaseResponse<RoomDataAccess>>(this._apiBaseUrl + '/update/' + id, createEntity)
     }
     findByIdAndDelete(id: string): Observable<BaseResponse<RoomDataAccess>> {
-        return this.httpClient.delete<BaseResponse<RoomDataAccess>>(this._apiBaseUrl + '/' + id)
+        return this.httpClient.delete<BaseResponse<RoomDataAccess>>(this._apiBaseUrl + '/delete/' + id)
     }
 
 }

@@ -7,21 +7,21 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class PassengerDataAccessService implements BaseDataAccess<PassengerDataAccess> {
     private httpClient = inject(HttpClient)
-    private _apiBaseUrl = environment.apiBaseUrl + 'passengers'
+    private _apiBaseUrl = environment.apiBaseUrl + 'passenger'
     create(createEntityDto: PassengerDataAccess): Observable<BaseResponse<PassengerDataAccess>> {
-        return this.httpClient.post<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl, createEntityDto)
+        return this.httpClient.post<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/create', createEntityDto)
     }
     findAll(): Observable<BaseResponse<PassengerDataAccess[]>> {
-        return this.httpClient.get<BaseResponse<PassengerDataAccess[]>>(this._apiBaseUrl)
+        return this.httpClient.get<BaseResponse<PassengerDataAccess[]>>(this._apiBaseUrl + '/all')
     }
     findById(id: string): Observable<BaseResponse<PassengerDataAccess>> {
         return this.httpClient.get<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/' + id)
     }
     findByIdAndUpdate(id: string, createEntity: PassengerDataAccess): Observable<BaseResponse<PassengerDataAccess>> {
-        return this.httpClient.patch<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/' + id, createEntity)
+        return this.httpClient.patch<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/update/' + id, createEntity)
     }
     findByIdAndDelete(id: string): Observable<BaseResponse<PassengerDataAccess>> {
-        return this.httpClient.delete<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/' + id)
+        return this.httpClient.delete<BaseResponse<PassengerDataAccess>>(this._apiBaseUrl + '/delete/' + id)
     }
 
 }

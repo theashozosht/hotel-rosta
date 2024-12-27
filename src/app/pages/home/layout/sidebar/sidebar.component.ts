@@ -33,25 +33,25 @@ export class SidebarComponent {
           {
             label: 'رزرو', items: [
               { label: 'لیست رزرو', icon: 'pi pi-fw pi-building text-xl', routerLink: ['/dashboard/reserve/list'] },
-              { label: 'ثبت رزرو', icon: 'pi pi-fw pi-calendar-plus text-xl', routerLink: ['/dashboard/reserve/form'] },
+              { label: 'ثبت رزرو', icon: 'pi pi-user-plus text-xl', routerLink: ['/dashboard/reserve/form'] },
             ]
           },
           {
             label: 'مسافران', items: [
-              { label: 'لیست مسافران', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger/list'] },
-              { label: 'ثبت مسافر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/passenger/form'] },
+              { label: 'لیست مسافران', icon: 'pi pi-fw pi-address-book text-xl', routerLink: ['/dashboard/passenger/list'] },
+              { label: 'ثبت مسافر', icon: 'pi pi-user-plus text-xl', routerLink: ['/dashboard/passenger/form'] },
             ]
           },
           {
             label: 'آژانس', items: [
-              { label: 'لیست آژانس', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/list'] },
-              { label: 'ثبت آژانس', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/form'] },
+              { label: 'لیست آژانس', icon: 'pi pi-fw pi-warehouse text-xl', routerLink: ['/dashboard/agency/list'] },
+              { label: 'ثبت آژانس', icon: 'pi pi-user-plus text-xl', routerLink: ['/dashboard/agency/form'] },
             ]
           },
           {
             label: 'ریجستر', items: [
-              { label: 'لیست ریجستر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/register/list'] },
-              { label: 'ثبت ریجستر', icon: 'pi pi-fw pi-id-card text-xl', routerLink: ['/dashboard/agency/form'] },
+              { label: 'لیست ریجستر', icon: 'pi pi-fw pi-wallet text-xl', routerLink: ['/dashboard/register/list'] },
+              { label: 'ثبت ریجستر', icon: 'pi pi-user-plus text-xl', routerLink: ['/dashboard/agency/form'] },
             ]
           },
           { label: 'خروج از حساب', icon: 'pi pi-fw pi-sign-out text-xl', hasCallBack: true, callBack: this.logOut.bind(this) },

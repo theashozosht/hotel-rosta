@@ -15,7 +15,7 @@ import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PassengerDataAccessService } from '@core/services';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BaseResponse, PassengerDataAccess, PaymentStatus } from '@core/types';
 import { JalaliPipe } from '@core/pipes';
 import moment  from 'jalali-moment';
@@ -40,7 +40,8 @@ moment.locale('fa')
     InputNumberModule,
     DialogModule,
     JalaliPipe,
-    RouterModule
+    RouterModule,
+    HttpClientModule
     ],
   providers: [MessageService, PassengerDataAccessService],
   templateUrl: './passenger-list.component.html',

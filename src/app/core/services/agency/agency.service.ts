@@ -10,18 +10,18 @@ export class AgencyDataAccessService  {
     private _apiBaseUrl = environment.apiBaseUrl + 'agency'
 
     create(createEntityDto: AgencyDataAccessDTO): Observable<BaseResponse<AgencyDataAccess>> {
-        return this.httpClient.post<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl, createEntityDto)
+        return this.httpClient.post<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/create', createEntityDto)
     }
     findAll(): Observable<BaseResponse<AgencyDataAccess[]>> {
-        return this.httpClient.get<BaseResponse<AgencyDataAccess[]>>(this._apiBaseUrl)
+        return this.httpClient.get<BaseResponse<AgencyDataAccess[]>>(this._apiBaseUrl + '/all')
     }
     findById(id: string): Observable<BaseResponse<AgencyDataAccess>> {
         return this.httpClient.get<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/' + id)
     }
     findByIdAndUpdate(id: string, createEntity: AgencyDataAccessDTO): Observable<BaseResponse<AgencyDataAccess>> {
-        return this.httpClient.patch<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/' + id, createEntity)
+        return this.httpClient.patch<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/update/' + id, createEntity)
     }
     findByIdAndDelete(id: string): Observable<BaseResponse<AgencyDataAccess>> {
-        return this.httpClient.delete<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/' + id)
+        return this.httpClient.delete<BaseResponse<AgencyDataAccess>>(this._apiBaseUrl + '/delete/' + id)
     }
 }
